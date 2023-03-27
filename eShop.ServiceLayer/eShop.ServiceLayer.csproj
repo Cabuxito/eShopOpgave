@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eShop.DataLayer\eShop.DataLayer.csproj" />
+  </ItemGroup>
+
 </Project>

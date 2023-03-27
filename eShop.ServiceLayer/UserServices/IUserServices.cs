@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShop.DataLayer.Entities
+namespace eShop.ServiceLayer.UserServices
 {
-    public class ShoppingCart    
+    internal interface IUserServices
     {
-        public Guid ShoppingCartId { get; set; }
-        
     }
 }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace eShop.DataLayer.Entities
 {
-    public class Brand
+    public class OrderProduct
     {
-        public int BrandId { get; set; }
-        public string Name { get; set; }
-
-        //public ICollection<Products> Products { get; set; }
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
     }
 }
