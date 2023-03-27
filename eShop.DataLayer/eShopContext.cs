@@ -6,9 +6,6 @@ namespace eShop.DataLayer
 {
     public class eShopContext : DbContext
     {
-        public DbSet<Products> Products { get; set; }
-        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
