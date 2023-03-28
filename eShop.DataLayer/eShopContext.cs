@@ -15,7 +15,17 @@ namespace eShop.DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region FLUENT API
 
+            modelBuilder.Entity<Product>()
+                .HasKey(p => p.ProductId);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Title);
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Description);
+
+            #endregion
         }
     }
 }

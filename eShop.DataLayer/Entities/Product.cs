@@ -12,8 +12,8 @@ public class Product
     public double Price { get; set; }
     public int Stock { get; set; }
     public string Manufacture { get; set; }
-    public string Category { get; set; }
 
-    public List<string> Images { get; set; }
+    
+
 }
 
