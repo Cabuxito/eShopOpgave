@@ -16,6 +16,6 @@ namespace eShop.ServiceLayer.ModelsDTO
         public int Stock { get; set; }
         public string Manufacture { get; set; }
 
-        public ICollection<string> Categories { get; set; }
+        public ICollection<Category> Categories { get; set; }
     }
 }

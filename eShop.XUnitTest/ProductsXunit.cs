@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace eShop.XUnitTest;
 
-public class UnitTest1
+public class ProductsXunit
 {
     [Fact]
     public async Task TestCreateProduct()
@@ -33,4 +33,30 @@ public class UnitTest1
         Assert.Equal(productsDTO.Description, actualProduct.Description);
 
     }
+
+    [Fact]
+    public void GetAllProducts()
+    {
+        var _context = ContextCreater.CreateContext();
+        var _service = new ProductServices(_context);
+        //Arrange
+        _context.Products.Add(new Product
+        {
+            Title = "Test",
+            Description = "Test",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd"
+        });
+        _context.SaveChanges();    
+        //Act
+
+        var list = _service.GetAllProducts().Count();
+
+        //Assert
+
+        Assert.Equal(list, 1);
+
+    }
+
 }

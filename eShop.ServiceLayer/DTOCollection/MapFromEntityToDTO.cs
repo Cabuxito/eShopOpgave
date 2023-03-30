@@ -14,7 +14,7 @@ public static class MapFromEntityToDTO
             Title = x.Title,
             Description = x.Description,
             Manufacture = x.Manufacture,
-            Categories = (ICollection<string>)x.Categories
+            Categories = x.Categories
         });
     }
 
