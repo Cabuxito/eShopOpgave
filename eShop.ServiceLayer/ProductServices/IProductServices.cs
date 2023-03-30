@@ -7,6 +7,6 @@ namespace eShop.ServiceLayer.Services
         public Task AddProductAsync(ProductsDTO productDTO);
         public List<ProductsDTO> GetAllProducts();
         public Task UpdateProductAsync(ProductsDTO productDTO);
-        public Task DeleteProductByIdAsync(int id);
+        public Task DeleteProductAsync(int id);
     }
 }

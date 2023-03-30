@@ -1,4 +1,5 @@
 ﻿using eShop.DataLayer;
+using eShop.DataLayer.Entities;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
 using System;
@@ -32,6 +33,18 @@ namespace eShop.ServiceLayer.OrderServices
         }
 
         public List<OrderProductsDTO> GetAllOrders() => _context.Orders.ConvertOrdersTOOrdersDTO().ToList();
+
+        public async Task UpdateOrder(OrderProductsDTO orderDTO)
+        {
+            _context.Orders.Update(orderDTO.ConvertFromDTOtoOrders());
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteOrder(OrderProductsDTO orderDTO)
+        {
+            _context.Orders.Remove(orderDTO.ConvertFromDTOtoOrders());
+            await _context.SaveChangesAsync();
+        }
 
     }
 }

@@ -66,6 +66,7 @@ namespace eShop.DataLayer
                 });
 
             #endregion
+
         }
     }
 }

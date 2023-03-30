@@ -1,4 +1,7 @@
+using eShop.ServiceLayer.DTOCollection;
+using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.Services;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 
 namespace eShop.XUnitTest;
@@ -35,7 +38,7 @@ public class ProductsXunit
     }
 
     [Fact]
-    public void GetAllProducts()
+    public void TestGetProducts()
     {
         var _context = ContextCreater.CreateContext();
         var _service = new ProductServices(_context);
@@ -59,4 +62,100 @@ public class ProductsXunit
 
     }
 
+    [Fact]
+    public void TestSearchProductByWord()
+    {
+        var _context = ContextCreater.CreateContext();
+        var _service = new ProductServices(_context);
+        //Arrange
+        _context.Products.Add(new Product
+        {
+            Title = "test",
+            Description = "Test",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd"
+        });
+        _context.Products.Add(new Product
+        {
+            Title = "test2",
+            Description = "Test2",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd222"
+        });
+        _context.SaveChanges();
+        //Act
+
+        var products = _service.SearchProductByWord("test").First();
+
+        //Assert
+
+        Assert.Equal("test", products.Title);
+    }
+
+    [Fact]
+    public async Task TestDeleteProduct()
+    {
+        var _context = ContextCreater.CreateContext();
+        var _service = new ProductServices(_context);
+        //Arrange
+        _context.Products.Add(new Product
+        {
+            Title = "test",
+            Description = "Test",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd"
+        });
+        var product = new ProductsDTO
+        {
+            Title = "test",
+            Description = "Test",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd"
+        };
+        _context.SaveChanges();
+        //Act
+
+        _service.DeleteProductAsync(1);
+
+        //Assert
+        var products = _service.GetAllProducts();
+
+        Assert.Empty(products);
+    }
+
+    [Fact]
+    public async Task TestUpdateProduct()
+    {
+        var _context = ContextCreater.CreateContext();
+        var _service = new ProductServices(_context);
+        //Arrange
+        ProductsDTO productsDTO = new ProductsDTO
+        {
+            MasterKey = 1,
+            Title = "Test",
+            Description = "Test",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd"
+
+        };
+        _context.Products.Add(productsDTO.ConvertFromDTOtoProduct());
+        await _context.SaveChangesAsync();
+
+        productsDTO.Description = "ITS WORKIIIING";
+        productsDTO.Stock = 421;
+        //Act
+
+        await _service.UpdateProductAsync(productsDTO);
+
+        //Assert
+        var actualProduct = _context.Products.AsNoTracking().First();
+
+        Assert.Equal(productsDTO.Stock, actualProduct.Stock);
+        Assert.Equal(productsDTO.Description, actualProduct.Description);
+    }
 }

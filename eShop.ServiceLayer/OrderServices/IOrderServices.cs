@@ -9,8 +9,9 @@ namespace eShop.ServiceLayer.OrderServices
 {
     public interface IOrderServices
     {
-        //public Task CreateNewOrder(OrderProductsDTO orderDTO);
-        //public List<OrderProductsDTO> GetOrderByOrderNumber(int orderNumber);
-        //public Task SendEmailToCustomer(CustomerDTO customerDTO);
+        public Task CreateNewOrder(OrderProductsDTO orderDTO);
+        public OrderProductsDTO GetOrderById(int id);
+        public Task UpdateOrder(OrderProductsDTO orderDTO);
+        public Task DeleteOrder(OrderProductsDTO orderDTO);
     }
 }

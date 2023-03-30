@@ -1,11 +1,7 @@
 ﻿using eShop.DataLayer;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShop.ServiceLayer.Services
 {
@@ -24,18 +20,31 @@ namespace eShop.ServiceLayer.Services
             await _context.SaveChangesAsync();
         }
 
-        public List<ProductsDTO> GetAllProducts() => _context.Products.ConvertProductsToProductsDTO().ToList();
-        
+        public List<ProductsDTO> GetAllProducts() => _context.Products.AsNoTracking().ConvertProductsToProductsDTO().ToList();
+
+        public ProductsDTO GetProductById(int id)
+        {
+            return (ProductsDTO)_context.Products.AsNoTracking().Where(x => x.ProductId == id).ConvertProductsToProductsDTO();
+        }
+
         public async Task UpdateProductAsync(ProductsDTO productDTO)
         {
-            _context.Products.Update(productDTO.ConvertFromDTOtoProduct());
+            Product? Oldproduct = _context.Products.AsNoTracking().FirstOrDefault(x => x.ProductId == productDTO.MasterKey);
+            Oldproduct = productDTO.ConvertFromDTOtoProduct();
+
+            _context.Products.Update(Oldproduct);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProductByIdAsync(int id)
+        public async Task DeleteProductAsync(int id)
         {
             _context.Products.Remove(_context.Products.Find(id));
             await _context.SaveChangesAsync();
+        }
+
+        public List<ProductsDTO> SearchProductByWord(string word)
+        {
+            return _context.Products.AsNoTracking().Where(x => EF.Functions.Like(x.Title, word)).ConvertProductsToProductsDTO().ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eShop.DataLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,6 @@ namespace eShop.ServiceLayer.ModelsDTO
     {
         public int OrdersId { get; set; }
         public DateTime BuyDate { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
         public double FullPrice { get; set; }
 
         public List<Product> Products { get; set; }

@@ -26,5 +26,18 @@ namespace eShop.ServiceLayer.DTOCollection
 
             };
         }
+
+        public static Customer ConvertFromDTOtoCustomer(this CustomerDTO customerDTO)
+        {
+            return new Customer
+            {
+                CustomerID = customerDTO.PrivateNumber,
+                Firstname = customerDTO.Firstname,
+                Lastname = customerDTO.Lastname,
+                Address = customerDTO.Address,
+                Email= customerDTO.Email,
+            };
+        }
+
     }
 }

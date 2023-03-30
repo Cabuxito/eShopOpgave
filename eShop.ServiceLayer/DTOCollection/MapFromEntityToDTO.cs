@@ -32,4 +32,17 @@ public static class MapFromEntityToDTO
 
     }
 
+    public static IQueryable<CustomerDTO> ConvertFromCustomertoDTO(this IQueryable<Customer> customer)
+    {
+        return customer.Select(x => new CustomerDTO
+        (
+            x.CustomerID,
+            x.Firstname,
+            x.Lastname,
+            x.Address,
+            x.Email
+        ));
+        
+    }
+
 }
