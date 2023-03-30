@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShop.ServiceLayer.UserServices
+namespace eShop.ServiceLayer.CustomerServices
 {
-    internal interface IUserServices
+    public interface ICustomerServices
     {
+        
     }
 }

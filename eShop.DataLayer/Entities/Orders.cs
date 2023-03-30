@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using eShop.DataLayer.Entities.JoinerTables;
 
-namespace eShop.DataLayer.Entities
+namespace eShop.DataLayer.Entities;
+
+public class Orders
 {
-    public class Orders
-    {
-        public int OrderId { get; set; }
-        public DateTime buyDate { get; set; } = DateTime.Now;
+    public int OrdersId { get; set; }
+    public DateTime BuyDate { get; set; } = DateTime.Now;
 
-        public ICollection<OrderProduct> OrderProducts { get; set; }
+    public ICollection<Customer> Customer { get; set; }
+    public ICollection<OrderProduct> Products { get; set; }
 
-    }
 }
