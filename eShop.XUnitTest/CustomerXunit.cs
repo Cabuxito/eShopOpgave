@@ -16,7 +16,7 @@ namespace eShop.XUnitTest
         public async Task TestCreateCustomerAsync()
         {
             var _context = ContextCreater.CreateContext();
-            var _service = new OrderServices(_context);
+            var _service = new CustomerServices(_context);
             //Arrange
 
             CustomerDTO customerDTO = new CustomerDTO(1, "thomas", "TheKrillz", "SkpMester@", "Alsgade");

@@ -22,7 +22,6 @@ public class ProductsXunit
             Price = 22,
             Stock = 1,
             Manufacture = "asdasd"
-
         };
 
         //Act

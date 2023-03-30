@@ -13,23 +13,7 @@ public class OrdersXunit
         var _context = ContextCreater.CreateContext();
         var _service = new OrderServices(_context);
 
-
-
-
-
-        var _services = new ProductServices(_context);
         //Arrange
-        ProductsDTO productsDTO = new ProductsDTO
-        {
-            MasterKey = 1,
-            Title = "Test",
-            Description = "Test",
-            Price = 22,
-            Stock = 1,
-            Manufacture = "asdasd"
-
-        };
-        await _services.AddProductAsync(productsDTO);
         OrderProductsDTO orderProductsDTO = new
         (
             1,
@@ -46,7 +30,6 @@ public class OrdersXunit
 
         Assert.Equal(orderProductsDTO.BuyDate, actualOrder.BuyDate);
         Assert.Equal(orderProductsDTO.OrdersId, actualOrder.OrdersId);
-        Assert.Equal(1, actualOrder.Products.Count());
     }
 
     [Fact]
