@@ -130,6 +130,7 @@ public class ProductsXunit
     public async Task TestUpdateProduct()
     {
         var _context = ContextCreater.CreateContext();
+        var _myContext = ContextCreater.CreateContext();
         var _service = new ProductServices(_context);
         //Arrange
         ProductsDTO productsDTO = new ProductsDTO
@@ -142,8 +143,8 @@ public class ProductsXunit
             Manufacture = "asdasd"
 
         };
-        _context.Products.Add(productsDTO.ConvertFromDTOtoProduct());
-        await _context.SaveChangesAsync();
+        _myContext.Products.Add(productsDTO.ConvertFromDTOtoProduct());
+        await _myContext.SaveChangesAsync();
 
         productsDTO.Description = "ITS WORKIIIING";
         productsDTO.Stock = 421;
@@ -152,7 +153,7 @@ public class ProductsXunit
         await _service.UpdateProductAsync(productsDTO);
 
         //Assert
-        var actualProduct = _context.Products.AsNoTracking().First();
+        var actualProduct = _myContext.Products.AsNoTracking().First();
 
         Assert.Equal(productsDTO.Stock, actualProduct.Stock);
         Assert.Equal(productsDTO.Description, actualProduct.Description);
