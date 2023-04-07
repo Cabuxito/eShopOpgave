@@ -10,12 +10,14 @@ public class Product
     public int Stock { get; set; }
     public string Manufacture { get; set; }
 
-    public int ImageId { get; set; } // FK
 
     //Navigations Property
+    public int ImageId { get; set; } // FK
     public Images Images { get; set; }
-    public ICollection<Category> Categories { get; set; }
+
+
     public ICollection<OrderProduct> Orders{ get; set; }
+    public ICollection<CategoryProducts> Category { get; set; }
 
 }
 

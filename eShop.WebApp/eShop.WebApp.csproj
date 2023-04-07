@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,8 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\eShop.DataLayer\eShop.DataLayer.csproj" />
     <ProjectReference Include="..\eShop.ServiceLayer\eShop.ServiceLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\MyPages\" />
   </ItemGroup>
 
 </Project>

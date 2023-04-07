@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eShop.DataLayer.Entities.JoinerTables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,6 @@ namespace eShop.DataLayer.Entities
         public int CategoryId { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public ICollection<CategoryProducts> Products { get; set; }
     }
 }

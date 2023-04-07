@@ -118,7 +118,7 @@ public class ProductsXunit
         _context.SaveChanges();
         //Act
 
-        _service.DeleteProductAsync(1);
+        await _service.DeleteProductAsync(1);
 
         //Assert
         var products = _service.GetAllProducts();

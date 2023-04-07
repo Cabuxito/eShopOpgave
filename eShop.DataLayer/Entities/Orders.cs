@@ -7,7 +7,10 @@ public class Orders
     public int OrdersId { get; set; }
     public DateTime BuyDate { get; set; } = DateTime.Now;
 
-    public ICollection<Customer> Customer { get; set; }
+    public ICollection<OrderCustomer> Customers { get; set; }
     public ICollection<OrderProduct> Products { get; set; }
+
+    public int PayOptionsId { get; set; }
+    public PayOptions PayOptions { get; set; }
 
 }

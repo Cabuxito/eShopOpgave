@@ -11,7 +11,7 @@ namespace eShop.DataLayer.Entities
     {
         public int ImagesId { get; set; } // PK
         public string DefaultText { get; set; }
-        public byte[] ImgPath { get; set; }
+        public string ImgPath { get; set; }
 
         public int ProductId { get; set; } // FK
         public Product Products { get; set; }

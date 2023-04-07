@@ -13,21 +13,19 @@ public static class MapFromEntityToDTO
             MasterKey = x.ProductId,
             Title = x.Title,
             Description = x.Description,
-            Manufacture = x.Manufacture,
-            Categories = x.Categories
+            Manufacture = x.Manufacture
         });
     }
 
-    public static IQueryable<OrderProductsDTO> ConvertOrdersTOOrdersDTO(this IQueryable<Orders> orders)
+    public static IQueryable<OrderDTO> ConvertOrdersTOOrdersDTO(this IQueryable<Orders> orders)
     {
-        return orders.Select(x => new OrderProductsDTO
+        return orders.Select(x => new OrderDTO
         (
             x.OrdersId,
             x.BuyDate,
-            2,
-            new List<Product>()
-            //x.Products.Sum(p => p.Price),
-            //x.Products.ToList()
+            x.Products.Sum(x => x.Products.Price),
+            new List<Product>(),
+            new Customer()
         ));
 
     }

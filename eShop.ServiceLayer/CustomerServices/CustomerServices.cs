@@ -21,6 +21,8 @@ namespace eShop.ServiceLayer.CustomerServices
 
         public List<CustomerDTO> GetCustomers() => _context.Customers.Cast<CustomerDTO>().ToList();
 
+        public CustomerDTO? GetCustomerById(int id) => _context.Customers.ConvertFromCustomertoDTO().FirstOrDefault(x => x.PrivateNumber == id);
+
         public async Task UpdateCustomerAsync(CustomerDTO customerDTO)
         {
             _context.Customers.Update(customerDTO.ConvertFromDTOtoCustomer());

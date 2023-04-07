@@ -1,7 +1,26 @@
+using eShop.DataLayer;
+using eShop.ServiceLayer.CustomerServices;
+using eShop.ServiceLayer.OrderServices;
+using eShop.ServiceLayer.Services;
+using Microsoft.AspNetCore.Connections;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+var configuration = builder.Configuration;
+
+builder.Services.AddDbContext<eShopContext>(options => options
+.UseSqlServer(configuration.GetConnectionString("SQLConnectionString")));
+
+    builder.Services
+.AddScoped<IProductServices, ProductServices>()
+.AddScoped<IOrderServices, OrderServices>()
+.AddScoped<ICustomerServices, CustomerServices>();
+
 
 var app = builder.Build();
 

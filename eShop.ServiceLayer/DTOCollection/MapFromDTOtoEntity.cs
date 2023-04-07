@@ -18,7 +18,7 @@ namespace eShop.ServiceLayer.DTOCollection
             };
         }
 
-        public static Orders ConvertFromDTOtoOrders(this OrderProductsDTO ordersDTO)
+        public static Orders ConvertFromDTOtoOrders(this OrderDTO ordersDTO)
         {
             return new Orders
             {
