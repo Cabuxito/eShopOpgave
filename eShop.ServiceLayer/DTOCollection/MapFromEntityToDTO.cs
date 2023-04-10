@@ -13,7 +13,8 @@ public static class MapFromEntityToDTO
             MasterKey = x.ProductId,
             Title = x.Title,
             Description = x.Description,
-            Manufacture = x.Manufacture
+            Manufacture = x.Manufacture,
+            ImgPath = x.Images.ImgPath
         });
     }
 
@@ -38,7 +39,8 @@ public static class MapFromEntityToDTO
             x.Firstname,
             x.Lastname,
             x.Address,
-            x.Email
+            x.Email,
+            x.IsAdmin
         ));
         
     }

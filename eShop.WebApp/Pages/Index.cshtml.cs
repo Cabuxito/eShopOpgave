@@ -1,5 +1,6 @@
 ﻿using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace eShop.WebApp.Pages
@@ -14,6 +15,8 @@ namespace eShop.WebApp.Pages
             _logger = logger;
             _productServices = productServices;
         }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
 
         public List<ProductsDTO> Products { get; set; }
 

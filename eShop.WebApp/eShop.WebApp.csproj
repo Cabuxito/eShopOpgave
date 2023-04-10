@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\MyPages\**" />
+    <Content Remove="Pages\MyPages\**" />
+    <EmbeddedResource Remove="Pages\MyPages\**" />
+    <None Remove="Pages\MyPages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,10 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\eShop.DataLayer\eShop.DataLayer.csproj" />
     <ProjectReference Include="..\eShop.ServiceLayer\eShop.ServiceLayer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\MyPages\" />
   </ItemGroup>
 
 </Project>

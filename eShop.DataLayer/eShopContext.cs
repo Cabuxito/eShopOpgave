@@ -106,9 +106,6 @@ namespace eShop.DataLayer
                    });
             }
 
-            //https://api.rawg.io/api/games?key=2dabb290f79c4df29a58fde8d38dfc34
-
-
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, Name = "Accion"},
                 new Category { CategoryId = 2, Name = "Platform"},
@@ -132,7 +129,7 @@ namespace eShop.DataLayer
             for (int i = 0; i < 7; i++)
             {
                 modelBuilder.Entity<Images>().HasData(
-                    new Images { ImagesId = 1 + i, ImgPath = @"~\wwwroot\Images\DefaultImg.png", DefaultText = "Image not load", ProductId = 1 + i });
+                    new Images { ImagesId = 1 + i, ImgPath = @"/Images/DefaultImg.png", DefaultText = "Image not load", ProductId = 1 + i });
             }
 
 
@@ -143,6 +140,7 @@ namespace eShop.DataLayer
 
             modelBuilder.Entity<ZipCode>()
                 .HasData( url.Select(x => new ZipCode { ZipCodeId = Convert.ToInt32(x.nr), ZipCodeName = x.navn }).ToList());
+
             #endregion
 
         }

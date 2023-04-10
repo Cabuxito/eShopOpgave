@@ -19,7 +19,7 @@ namespace eShop.XUnitTest
             var _service = new CustomerServices(_context);
             //Arrange
 
-            CustomerDTO customerDTO = new CustomerDTO(1, "thomas", "TheKrillz", "SkpMester@", "Alsgade");
+            CustomerDTO customerDTO = new CustomerDTO(1, "thomas", "TheKrillz", "SkpMester@", "Alsgade", false);
             
             //Act
 

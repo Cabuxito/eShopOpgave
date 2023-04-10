@@ -14,7 +14,7 @@ namespace eShop.ServiceLayer.DTOCollection
                 Description = productsDTO.Description,
                 Price = productsDTO.Price,
                 Stock = productsDTO.Stock,
-                Manufacture = productsDTO.Manufacture,
+                Manufacture = productsDTO.Manufacture
             };
         }
 

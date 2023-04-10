@@ -8,5 +8,6 @@ namespace eShop.ServiceLayer.Services
         public List<ProductsDTO> GetAllProducts();
         public Task UpdateProductAsync(ProductsDTO productDTO);
         public Task DeleteProductAsync(int id);
+        public List<ProductsDTO> SearchProductByWord(string word);
     }
 }

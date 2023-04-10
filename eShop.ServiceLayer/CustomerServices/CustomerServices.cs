@@ -1,6 +1,7 @@
 ﻿using eShop.DataLayer;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShop.ServiceLayer.CustomerServices
 {
@@ -35,6 +36,13 @@ namespace eShop.ServiceLayer.CustomerServices
             await _context.SaveChangesAsync();
         }
 
+        public async Task<CustomerDTO>? LoginSystem (string username, string password)
+        {
+            CustomerDTO? user = _context.Customers
+                .Where(x => x.Email == username & x.Password == password)
+                .ConvertFromCustomertoDTO().FirstOrDefault();
+            return user;
+        }
 
     }
 }

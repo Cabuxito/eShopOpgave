@@ -2,9 +2,7 @@ using eShop.DataLayer;
 using eShop.ServiceLayer.CustomerServices;
 using eShop.ServiceLayer.OrderServices;
 using eShop.ServiceLayer.Services;
-using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +17,10 @@ builder.Services.AddDbContext<eShopContext>(options => options
     builder.Services
 .AddScoped<IProductServices, ProductServices>()
 .AddScoped<IOrderServices, OrderServices>()
-.AddScoped<ICustomerServices, CustomerServices>();
+.AddScoped<ICustomerServices, CustomerServices>()
+.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(30); })
+.AddMemoryCache()
+.AddMvc();
 
 
 var app = builder.Build();
@@ -34,7 +35,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

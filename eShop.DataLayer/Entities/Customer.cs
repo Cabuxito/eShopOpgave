@@ -16,6 +16,7 @@ namespace eShop.DataLayer.Entities
         public string Password { get; set; } // need hashes
         public string Address { get; set; }
         public bool IsDeleted { get; set; } = false;
+        public bool IsAdmin { get; set; } = false;
 
         // Navigations Property
         public ICollection<OrderCustomer> Orders { get; set; }
