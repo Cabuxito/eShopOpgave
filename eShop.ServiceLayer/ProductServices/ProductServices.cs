@@ -20,7 +20,7 @@ namespace eShop.ServiceLayer.Services
             await _context.SaveChangesAsync();
         }
 
-        public List<ProductsDTO> GetAllProducts() => _context.Products.AsNoTracking().ConvertProductsToProductsDTO().ToList();
+        public async Task<List<ProductsDTO>> GetAllProducts() => _context.Products.AsNoTracking().ConvertProductsToProductsDTO().ToList();
 
         public ProductsDTO GetProductById(int id)
         {

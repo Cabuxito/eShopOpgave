@@ -20,9 +20,9 @@ namespace eShop.ServiceLayer.CustomerServices
             await _context.SaveChangesAsync();
         }
 
-        public List<CustomerDTO> GetCustomers() => _context.Customers.Cast<CustomerDTO>().ToList();
+        public async Task<List<CustomerDTO>> GetCustomers() => _context.Customers.AsNoTracking().Cast<CustomerDTO>().ToList();
 
-        public CustomerDTO? GetCustomerById(int id) => _context.Customers.ConvertFromCustomertoDTO().FirstOrDefault(x => x.PrivateNumber == id);
+        public async Task<CustomerDTO?> GetCustomerById(int id) => _context.Customers.ConvertFromCustomertoDTO().FirstOrDefault(x => x.PrivateNumber == id);
 
         public async Task UpdateCustomerAsync(CustomerDTO customerDTO)
         {

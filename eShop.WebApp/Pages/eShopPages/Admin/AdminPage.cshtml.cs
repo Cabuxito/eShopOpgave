@@ -24,8 +24,11 @@ namespace eShop.WebApp.Pages.Admin
         public List<CustomerDTO> Customer { get; set; }
         public List<OrderDTO> Order { get; set; }
 
-        public void OnGet()
+        public async Task OnGet()
         {
+            Products = await _productServices.GetAllProducts();
+            Customer = await _customerServices.GetCustomers();
+            Order = await _orderServices.GetAllOrders();
         }
     }
 }

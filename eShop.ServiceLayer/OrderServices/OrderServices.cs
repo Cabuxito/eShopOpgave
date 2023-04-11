@@ -1,6 +1,7 @@
 ﻿using eShop.DataLayer;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShop.ServiceLayer.OrderServices
 {
@@ -19,13 +20,13 @@ namespace eShop.ServiceLayer.OrderServices
             await _context.SaveChangesAsync();
         }
 
-        public OrderDTO GetOrderById(int id)
+        public async Task<OrderDTO> GetOrderById(int id)
         {
-            return (OrderDTO)_context.Orders
+            return (OrderDTO)_context.Orders.AsNoTracking()
                 .Where(x => x.OrdersId == id);
         }
 
-        public List<OrderDTO> GetAllOrders() => _context.Orders.ConvertOrdersTOOrdersDTO().ToList();
+        public async Task<List<OrderDTO>> GetAllOrders() => _context.Orders.AsNoTracking().ConvertOrdersTOOrdersDTO().ToList();
 
         public async Task UpdateOrder(OrderDTO orderDTO)
         {

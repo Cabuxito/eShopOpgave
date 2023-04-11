@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/Index">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
@@ -32,8 +32,8 @@
                         </li>
                     </ul>
                     <div>
-                        <form class="d-inline-flex">
-                            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" width="200"/>
+                        <form method="get" action="/eShopPages/Products/Search" class="d-inline-flex">
+                            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" width="200" name="SearchWord" />
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>

@@ -20,9 +20,9 @@ namespace eShop.WebApp.Pages
 
         public List<ProductsDTO> Products { get; set; }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            Products = _productServices.GetAllProducts();
+            Products = await _productServices.GetAllProducts();
         }
     }
 }
