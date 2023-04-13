@@ -34,12 +34,12 @@ namespace eShop.DataLayer
             modelBuilder.Entity<OrderCustomer>()
                 .HasOne(o => o.Orders)
                 .WithMany(c => c.Customers)
-                .HasForeignKey(x => x.CustomerId);
+                .HasForeignKey(x => x.OrdersId);
 
             modelBuilder.Entity<OrderCustomer>()
                 .HasOne(c => c.Customers)
                 .WithMany(o => o.Orders)
-                .HasForeignKey(x => x.OrdersId);
+                .HasForeignKey(x => x.CustomerId);
 
             modelBuilder.Entity<OrderCustomer>()
                 .HasKey(x => new
@@ -54,12 +54,12 @@ namespace eShop.DataLayer
             modelBuilder.Entity<CategoryProducts>()
                 .HasOne(c => c.Category)
                 .WithMany(p => p.Products)
-                .HasForeignKey(x => x.ProductId);
+                .HasForeignKey(x => x.CategoryId);
 
             modelBuilder.Entity<CategoryProducts>()
                 .HasOne(p => p.Products)
                 .WithMany(c => c.Category)
-                .HasForeignKey(x => x.CategoryId);
+                .HasForeignKey(x => x.ProductId);
 
             modelBuilder.Entity<CategoryProducts>()
                 .HasKey(p => new
@@ -73,33 +73,33 @@ namespace eShop.DataLayer
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(p => p.Orders)
                 .WithMany(o => o.Products)
-                .HasForeignKey(o => o.ProductId);
+                .HasForeignKey(o => o.OrdersId);
 
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(p => p.Products)
                 .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.OrdersId);
+                .HasForeignKey(x => x.ProductId);
 
             modelBuilder.Entity<OrderProduct>()
                 .HasKey(p => new
                 {
-                    p.OrdersId,
-                    p.ProductId
+                    p.ProductId,
+                    p.OrdersId
                 });
 
             #endregion
 
             #region Data Seeding
 
-            for (int i = 0; i < 7 ; i++)
+            for (int i = 0; i < 30 ; i++)
             {
                 modelBuilder.Entity<Product>().HasData(
                    new Product
                    {
                        ProductId = 1 + i,
-                       Title = "Game",
-                       Description = "this game is awesome",
-                       Price = 1 + i,
+                       Title = "Diablo III",
+                       Description = "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.",
+                       Price = 69.99,
                        Stock = 100,
                        Manufacture = "Blizzard",
                        ImageId = 1 + i,
@@ -116,30 +116,53 @@ namespace eShop.DataLayer
                 new Category { CategoryId = 7, Name = "18+"}
                 );
 
-            modelBuilder.Entity<CategoryProducts>().HasData(
-                new CategoryProducts { CategoryId = 1, ProductId= 1 },
-                new CategoryProducts { CategoryId = 2, ProductId= 2 },
-                new CategoryProducts { CategoryId = 3, ProductId= 3 },
-                new CategoryProducts { CategoryId = 4, ProductId= 4 },
-                new CategoryProducts { CategoryId = 5, ProductId= 5 },
-                new CategoryProducts { CategoryId = 6, ProductId= 6 },
-                new CategoryProducts { CategoryId = 7, ProductId= 7 }
-                );
-
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 30; i++)
             {
                 modelBuilder.Entity<Images>().HasData(
-                    new Images { ImagesId = 1 + i, ImgPath = @"/Images/DefaultImg.png", DefaultText = "Image not load", ProductId = 1 + i });
+                    new Images { ImagesId = 1 + i, ImgPath = @"/Images/diablo-3-pc-20394.png", DefaultText = "Image not load", ProductId = 1 + i });
             }
 
-
+            
+            modelBuilder.Entity<CategoryProducts>().HasData(
+                new CategoryProducts { CategoryId = 1, ProductId = 1 },
+                new CategoryProducts { CategoryId = 2, ProductId = 2 },
+                new CategoryProducts { CategoryId = 3, ProductId = 3 },
+                new CategoryProducts { CategoryId = 4, ProductId = 4 },
+                new CategoryProducts { CategoryId = 5, ProductId = 5 },
+                new CategoryProducts { CategoryId = 6, ProductId = 6 },
+                new CategoryProducts { CategoryId = 7, ProductId = 7 },
+                new CategoryProducts { CategoryId = 1, ProductId = 8 },
+                new CategoryProducts { CategoryId = 2, ProductId = 9 },
+                new CategoryProducts { CategoryId = 3, ProductId = 10 },
+                new CategoryProducts { CategoryId = 4, ProductId = 11 },
+                new CategoryProducts { CategoryId = 5, ProductId = 12 },
+                new CategoryProducts { CategoryId = 6, ProductId = 13 },
+                new CategoryProducts { CategoryId = 7, ProductId = 14 },
+                new CategoryProducts { CategoryId = 1, ProductId = 15 },
+                new CategoryProducts { CategoryId = 2, ProductId = 16 },
+                new CategoryProducts { CategoryId = 3, ProductId = 17 },
+                new CategoryProducts { CategoryId = 4, ProductId = 18 },
+                new CategoryProducts { CategoryId = 5, ProductId = 19 },
+                new CategoryProducts { CategoryId = 6, ProductId = 20 },
+                new CategoryProducts { CategoryId = 7, ProductId = 21 },
+                new CategoryProducts { CategoryId = 1, ProductId = 22 },
+                new CategoryProducts { CategoryId = 2, ProductId = 23 },
+                new CategoryProducts { CategoryId = 3, ProductId = 24 },
+                new CategoryProducts { CategoryId = 4, ProductId = 25 },
+                new CategoryProducts { CategoryId = 5, ProductId = 26 },
+                new CategoryProducts { CategoryId = 6, ProductId = 27 },
+                new CategoryProducts { CategoryId = 7, ProductId = 28 },
+                new CategoryProducts { CategoryId = 1, ProductId = 29 },
+                new CategoryProducts { CategoryId = 2, ProductId = 30 }
+                );
+            
             #endregion
 
             #region API
             List<PostNummerAPI> url = "https://api.dataforsyningen.dk/postnumre".GetJsonAsync<List<PostNummerAPI>>().GetAwaiter().GetResult();
 
             modelBuilder.Entity<ZipCode>()
-                .HasData( url.Select(x => new ZipCode { ZipCodeId = Convert.ToInt32(x.nr), ZipCodeName = x.navn }).ToList());
+                .HasData( url.Take(200).Select(x => new ZipCode { ZipCodeId = Convert.ToInt32(x.nr), ZipCodeName = x.navn }).ToList());
 
             #endregion
 

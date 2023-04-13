@@ -1,6 +1,7 @@
 ﻿using eShop.DataLayer;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
+using eShop.ServiceLayer.ModelsDTO.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace eShop.ServiceLayer.Services
@@ -20,7 +21,7 @@ namespace eShop.ServiceLayer.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ProductsDTO>> GetAllProducts() => _context.Products.AsNoTracking().ConvertProductsToProductsDTO().ToList();
+        public async Task<List<ProductsDTO>> GetAllProducts() => _context.Products.AsNoTracking().Page<Product>(1, 8).ConvertProductsToProductsDTO().ToList();
 
         public ProductsDTO GetProductById(int id)
         {

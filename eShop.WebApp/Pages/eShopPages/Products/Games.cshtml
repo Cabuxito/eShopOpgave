@@ -9,18 +9,18 @@
         </div>
 </section>
 <body>
-    <main>
+    <main class="row gx-2 gy-3 ms-1">
         @foreach (var item in Model.Games)
         {
-            <div class="d-inline-flex ms-5 mt-5">
+            <div class="d-inline-flex col-3 ">
                 <div class="card shadow-sm border-dark ">
-                    <img src="@item.ImgPath" class="border-dark" width="250" height="250">
+                    <img src="@item.ImgPath" class="border-dark" width="300" height="300">
                     <div class="card-body border-dark">
                         <div>
                             <p class="card-title">@item.Title</p>
                             <small class="float-end">@item.Price.-</small>
                         </div>
-                        <p class="card-text">@item.Description</p>
+                        <p class="card-text text-truncate" style="max-width: 250px;">@item.Description</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group ms-4">
                                 <button type="button" class="btn btn-sm btn-outline-success">Add Cart</button>

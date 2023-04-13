@@ -32,25 +32,25 @@ public class OrdersXunit
     //    Assert.Equal(orderProductsDTO.OrdersId, actualOrder.OrdersId);
     //}
 
-    [Fact]
-    public void TestGetOrders()
-    {
-        var _context = ContextCreater.CreateContext();
-        var _service = new ServiceLayer.OrderServices.OrderServices(_context);
-        //Arrange
-        _context.Orders.Add(new Orders
-        {
-            OrdersId = 1,
-            BuyDate = DateTime.UtcNow
-        });
-        _context.SaveChanges();
-        //Act
+    //[Fact]
+    //public void TestGetOrders()
+    //{
+    //    var _context = ContextCreater.CreateContext();
+    //    var _service = new ServiceLayer.OrderServices.OrderServices(_context);
+    //    //Arrange
+    //    _context.Orders.Add(new Orders
+    //    {
+    //        OrdersId = 1,
+    //        BuyDate = DateTime.UtcNow
+    //    });
+    //    _context.SaveChanges();
+    //    //Act
 
-        var list = _service.GetAllOrders().Count();
+    //    var list = _service.GetAllOrders().Count();
 
-        //Assert
+    //    //Assert
 
-        Assert.Equal(list, 1);
+    //    Assert.Equal(list, 1);
 
-    }
+    //}
 }

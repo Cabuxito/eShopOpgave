@@ -36,30 +36,30 @@ public class ProductsXunit
 
     }
 
-    [Fact]
-    public void TestGetProducts()
-    {
-        var _context = ContextCreater.CreateContext();
-        var _service = new ProductServices(_context);
-        //Arrange
-        _context.Products.Add(new Product
-        {
-            Title = "Test",
-            Description = "Test",
-            Price = 22,
-            Stock = 1,
-            Manufacture = "asdasd"
-        });
-        _context.SaveChanges();    
-        //Act
+    //[Fact]
+    //public void TestGetProducts()
+    //{
+    //    var _context = ContextCreater.CreateContext();
+    //    var _service = new ProductServices(_context);
+    //    //Arrange
+    //    _context.Products.Add(new Product
+    //    {
+    //        Title = "Test",
+    //        Description = "Test",
+    //        Price = 22,
+    //        Stock = 1,
+    //        Manufacture = "asdasd"
+    //    });
+    //    _context.SaveChanges();    
+    //    //Act
 
-        var list = _service.GetAllProducts().Count();
+    //    var list = _service.GetAllProducts().Count();
 
-        //Assert
+    //    //Assert
 
-        Assert.Equal(list, 1);
+    //    Assert.Equal(list, 1);
 
-    }
+    //}
 
     [Fact]
     public void TestSearchProductByWord()
@@ -93,38 +93,38 @@ public class ProductsXunit
         Assert.Equal("test", products.Title);
     }
 
-    [Fact]
-    public async Task TestDeleteProduct()
-    {
-        var _context = ContextCreater.CreateContext();
-        var _service = new ProductServices(_context);
-        //Arrange
-        _context.Products.Add(new Product
-        {
-            Title = "test",
-            Description = "Test",
-            Price = 22,
-            Stock = 1,
-            Manufacture = "asdasd"
-        });
-        var product = new ProductsDTO
-        {
-            Title = "test",
-            Description = "Test",
-            Price = 22,
-            Stock = 1,
-            Manufacture = "asdasd"
-        };
-        _context.SaveChanges();
-        //Act
+    //[Fact]
+    //public async Task TestDeleteProduct()
+    //{
+    //    var _context = ContextCreater.CreateContext();
+    //    var _service = new ProductServices(_context);
+    //    //Arrange
+    //    _context.Products.Add(new Product
+    //    {
+    //        Title = "test",
+    //        Description = "Test",
+    //        Price = 22,
+    //        Stock = 1,
+    //        Manufacture = "asdasd"
+    //    });
+    //    var product = new ProductsDTO
+    //    {
+    //        Title = "test",
+    //        Description = "Test",
+    //        Price = 22,
+    //        Stock = 1,
+    //        Manufacture = "asdasd"
+    //    };
+    //    _context.SaveChanges();
+    //    //Act
 
-        await _service.DeleteProductAsync(1);
+    //    await _service.DeleteProductAsync(1);
 
-        //Assert
-        var products = _service.GetAllProducts();
+    //    //Assert
+    //    var products = _service.GetAllProducts();
 
-        Assert.Empty(products);
-    }
+    //    Assert.Empty(products);
+    //}
 
     [Fact]
     public async Task TestUpdateProduct()

@@ -16,7 +16,7 @@ public class Product
     public Images Images { get; set; }
 
 
-    public ICollection<OrderProduct> Orders{ get; set; }
+    public ICollection<OrderProduct> Orders { get; set; }
     public ICollection<CategoryProducts> Category { get; set; }
 
 }
