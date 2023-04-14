@@ -20,15 +20,36 @@ namespace eShop.WebApp.Pages.Admin
             _orderServices = orderServices;
         }
 
+        [BindProperty]
+        public string AdminChoice { get; set; }
+
         public List<ProductsDTO> Products { get; set; }
         public List<CustomerDTO> Customer { get; set; }
         public List<OrderDTO> Order { get; set; }
 
-        public async Task OnGet()
+        public bool ProductCheck { get; set; }
+        public bool CustomerCheck { get; set; }
+        public bool OrderCheck { get; set; }
+
+        public async Task OnPostAsync()
         {
-            Products = await _productServices.GetAllProducts();
-            Customer = await _customerServices.GetCustomers();
-            Order = await _orderServices.GetAllOrders();
+            switch (AdminChoice)
+            {
+                case "Products":
+                    ProductCheck = true;
+                    Products = await _productServices.GetAllProducts();
+                    break;
+                case "Customers":
+                    CustomerCheck = true;
+                    Customer = await _customerServices.GetCustomers();
+                    break;
+                case "Order":
+                    OrderCheck = true;
+                    Order = await _orderServices.GetAllOrders();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace eShop.WebApp.Pages.eShopPages.Products

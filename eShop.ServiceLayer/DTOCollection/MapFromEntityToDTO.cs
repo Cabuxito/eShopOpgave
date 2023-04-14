@@ -39,6 +39,7 @@ public static class MapFromEntityToDTO
             x.Firstname,
             x.Lastname,
             x.Address,
+            x.ZipCode.ZipCodeName,
             x.Email,
             x.IsAdmin
         ));
