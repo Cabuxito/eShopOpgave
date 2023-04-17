@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
 {
-    [BindProperties]
+    
     public class CreateProductModel : PageModel
     {
         private readonly IProductServices _productServices;
@@ -22,11 +22,17 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
         public string ProductName { get; set; }
         [BindProperty, MaxLength(100)]
         public string ProductDescription { get; set; }
+        [BindProperty]
         public string Manufacture { get; set; }
+        [BindProperty]
         public double Price { get; set; }
+        [BindProperty]
         public int Stock { get; set; }
-        public string Image { get; set; }
+        [BindProperty]
+        public IFormFile Image { get; set; }
+        [BindProperty]
         public List<SelectListItem> Categories { get; set; }
+        [BindProperty]
         public List<int> CategoryIds { get; set; }
 
         public async Task OnGet()
@@ -42,6 +48,7 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
 
         public async Task<IActionResult> OnPost()
         {
+            string path = $@"~\eShop.WebApp\wwwroot\Images\{Image.FileName}";
             List<Category> cat = new List<Category>();
             Categories.ForEach(x => cat.Add(new Category { CategoryId = int.Parse(x.Value) }));
             ProductsDTO newProduct = new ProductsDTO
@@ -50,10 +57,15 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
                 Description = ProductDescription,
                 Manufacture = Manufacture,
                 Price = Price,
-                ImgPath = Image,
+                ImgPath = path,
                 Stock = Stock,
                 Categories = CategoryIds.Select(x => new Category { CategoryId = x }).ToList(),
             };
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                Image.CopyTo(fileStream);
+            }
+
             if (newProduct != null )
             {
                 await _productServices.AddProductAsync(newProduct);

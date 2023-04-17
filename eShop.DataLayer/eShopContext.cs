@@ -126,6 +126,18 @@ namespace eShop.DataLayer
                     new Image { ImageId = 1 + i, ImgPath = @"/Image/diablo-3-pc-20394.png", DefaultText = "Image not load"});
             }
 
+            modelBuilder.Entity<Customer>().HasData(new Customer
+            {
+                CustomerID = 1,
+                Firstname = "Admin",
+                Lastname = "Admin",
+                Address = "Admin",
+                Email = "admin@admin.com",
+                Password = "admin",
+                IsAdmin = true,
+                IsDeleted = false,
+                ZipCodeId = 1050,
+            });
             
             modelBuilder.Entity<CategoryProducts>().HasData(
                 new CategoryProducts { CategoryId = 1, ProductId = 1 },

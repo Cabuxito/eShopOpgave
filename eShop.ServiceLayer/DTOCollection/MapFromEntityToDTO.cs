@@ -38,10 +38,11 @@ public static class MapFromEntityToDTO
             x.CustomerID,
             x.Firstname,
             x.Lastname,
-            x.Address,
-            x.ZipCode.ZipCodeName,
+            x.ZipCode.ZipCodeId,
             x.Email,
-            x.IsAdmin
+            x.Address,
+            x.IsAdmin,
+            x.Password
         ));
         
     }
