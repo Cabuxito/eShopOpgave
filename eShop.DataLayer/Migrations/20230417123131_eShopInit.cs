@@ -27,6 +27,20 @@ namespace eShop.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    ImageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DefaultText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImgPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.ImageId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PayOptions",
                 columns: table => new
                 {
@@ -40,24 +54,6 @@ namespace eShop.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
-                    Manufacture = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ZipCodes",
                 columns: table => new
                 {
@@ -68,6 +64,29 @@ namespace eShop.DataLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ZipCodes", x => x.ZipCodeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    Manufacture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_Products_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "ImageId");
                 });
 
             migrationBuilder.CreateTable(
@@ -87,51 +106,6 @@ namespace eShop.DataLayer.Migrations
                         column: x => x.PayOptionsId,
                         principalTable: "PayOptions",
                         principalColumn: "PayOptionsId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoryProducts",
-                columns: table => new
-                {
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryProducts", x => new { x.CategoryId, x.ProductId });
-                    table.ForeignKey(
-                        name: "FK_CategoryProducts_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryProducts_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    ImagesId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DefaultText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImgPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.ImagesId);
-                    table.ForeignKey(
-                        name: "FK_Images_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -158,6 +132,30 @@ namespace eShop.DataLayer.Migrations
                         column: x => x.ZipCodeId,
                         principalTable: "ZipCodes",
                         principalColumn: "ZipCodeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryProducts",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryProducts", x => new { x.CategoryId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_CategoryProducts_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -225,40 +223,40 @@ namespace eShop.DataLayer.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "ProductId", "Description", "ImageId", "Manufacture", "Price", "Stock", "Title" },
+                table: "Images",
+                columns: new[] { "ImageId", "DefaultText", "ImgPath" },
                 values: new object[,]
                 {
-                    { 1, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 1, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 2, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 2, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 3, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 3, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 4, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 4, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 5, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 5, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 6, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 6, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 7, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 7, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 8, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 8, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 9, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 9, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 10, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 10, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 11, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 11, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 12, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 12, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 13, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 13, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 14, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 14, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 15, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 15, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 16, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 16, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 17, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 17, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 18, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 18, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 19, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 19, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 20, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 20, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 21, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 21, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 22, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 22, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 23, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 23, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 24, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 24, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 25, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 25, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 26, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 26, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 27, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 27, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 28, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 28, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 29, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 29, "Blizzard", 69.989999999999995, 100, "Diablo III" },
-                    { 30, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 30, "Blizzard", 69.989999999999995, 100, "Diablo III" }
+                    { 1, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 2, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 3, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 4, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 5, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 6, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 7, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 8, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 9, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 10, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 11, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 12, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 13, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 14, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 15, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 16, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 17, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 18, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 19, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 20, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 21, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 22, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 23, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 24, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 25, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 26, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 27, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 28, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 29, "Image not load", "/Image/diablo-3-pc-20394.png" },
+                    { 30, "Image not load", "/Image/diablo-3-pc-20394.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -469,77 +467,77 @@ namespace eShop.DataLayer.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "ImageId", "Manufacture", "Price", "Stock", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 1, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 2, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 2, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 3, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 3, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 4, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 4, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 5, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 5, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 6, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 6, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 7, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 7, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 8, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 8, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 9, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 9, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 10, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 10, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 11, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 11, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 12, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 12, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 13, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 13, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 14, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 14, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 15, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 15, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 16, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 16, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 17, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 17, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 18, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 18, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 19, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 19, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 20, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 20, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 21, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 21, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 22, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 22, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 23, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 23, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 24, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 24, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 25, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 25, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 26, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 26, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 27, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 27, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 28, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 28, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 29, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 29, "Blizzard", 69.989999999999995, 100, "Diablo III" },
+                    { 30, "Action role-playing game with fast-paced real-time combat and an isometric graphics engine. The game utilizes classic dark fantasy elements and players assume the role of a heroic character charged with saving the world of Sanctuary from the forces of Hell.", 30, "Blizzard", 69.989999999999995, 100, "Diablo III" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "CategoryProducts",
                 columns: new[] { "CategoryId", "ProductId" },
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 1, 2 },
-                    { 1, 3 },
-                    { 1, 4 },
-                    { 1, 5 },
-                    { 1, 6 },
-                    { 1, 7 },
                     { 1, 8 },
-                    { 1, 9 },
-                    { 1, 10 },
-                    { 1, 11 },
-                    { 1, 12 },
-                    { 1, 13 },
-                    { 1, 14 },
                     { 1, 15 },
-                    { 1, 16 },
-                    { 1, 17 },
-                    { 1, 18 },
-                    { 1, 19 },
-                    { 1, 20 },
-                    { 1, 21 },
                     { 1, 22 },
-                    { 1, 23 },
-                    { 1, 24 },
-                    { 1, 25 },
-                    { 1, 26 },
-                    { 1, 27 },
-                    { 1, 28 },
                     { 1, 29 },
-                    { 1, 30 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Images",
-                columns: new[] { "ImagesId", "DefaultText", "ImgPath", "ProductId" },
-                values: new object[,]
-                {
-                    { 1, "Image not load", "/Images/diablo-3-pc-20394.png", 1 },
-                    { 2, "Image not load", "/Images/diablo-3-pc-20394.png", 2 },
-                    { 3, "Image not load", "/Images/diablo-3-pc-20394.png", 3 },
-                    { 4, "Image not load", "/Images/diablo-3-pc-20394.png", 4 },
-                    { 5, "Image not load", "/Images/diablo-3-pc-20394.png", 5 },
-                    { 6, "Image not load", "/Images/diablo-3-pc-20394.png", 6 },
-                    { 7, "Image not load", "/Images/diablo-3-pc-20394.png", 7 },
-                    { 8, "Image not load", "/Images/diablo-3-pc-20394.png", 8 },
-                    { 9, "Image not load", "/Images/diablo-3-pc-20394.png", 9 },
-                    { 10, "Image not load", "/Images/diablo-3-pc-20394.png", 10 },
-                    { 11, "Image not load", "/Images/diablo-3-pc-20394.png", 11 },
-                    { 12, "Image not load", "/Images/diablo-3-pc-20394.png", 12 },
-                    { 13, "Image not load", "/Images/diablo-3-pc-20394.png", 13 },
-                    { 14, "Image not load", "/Images/diablo-3-pc-20394.png", 14 },
-                    { 15, "Image not load", "/Images/diablo-3-pc-20394.png", 15 },
-                    { 16, "Image not load", "/Images/diablo-3-pc-20394.png", 16 },
-                    { 17, "Image not load", "/Images/diablo-3-pc-20394.png", 17 },
-                    { 18, "Image not load", "/Images/diablo-3-pc-20394.png", 18 },
-                    { 19, "Image not load", "/Images/diablo-3-pc-20394.png", 19 },
-                    { 20, "Image not load", "/Images/diablo-3-pc-20394.png", 20 },
-                    { 21, "Image not load", "/Images/diablo-3-pc-20394.png", 21 },
-                    { 22, "Image not load", "/Images/diablo-3-pc-20394.png", 22 },
-                    { 23, "Image not load", "/Images/diablo-3-pc-20394.png", 23 },
-                    { 24, "Image not load", "/Images/diablo-3-pc-20394.png", 24 },
-                    { 25, "Image not load", "/Images/diablo-3-pc-20394.png", 25 },
-                    { 26, "Image not load", "/Images/diablo-3-pc-20394.png", 26 },
-                    { 27, "Image not load", "/Images/diablo-3-pc-20394.png", 27 },
-                    { 28, "Image not load", "/Images/diablo-3-pc-20394.png", 28 },
-                    { 29, "Image not load", "/Images/diablo-3-pc-20394.png", 29 },
-                    { 30, "Image not load", "/Images/diablo-3-pc-20394.png", 30 }
+                    { 2, 2 },
+                    { 2, 9 },
+                    { 2, 16 },
+                    { 2, 23 },
+                    { 2, 30 },
+                    { 3, 3 },
+                    { 3, 10 },
+                    { 3, 17 },
+                    { 3, 24 },
+                    { 4, 4 },
+                    { 4, 11 },
+                    { 4, 18 },
+                    { 4, 25 },
+                    { 5, 5 },
+                    { 5, 12 },
+                    { 5, 19 },
+                    { 5, 26 },
+                    { 6, 6 },
+                    { 6, 13 },
+                    { 6, 20 },
+                    { 6, 27 },
+                    { 7, 7 },
+                    { 7, 14 },
+                    { 7, 21 },
+                    { 7, 28 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -551,12 +549,6 @@ namespace eShop.DataLayer.Migrations
                 name: "IX_Customers_ZipCodeId",
                 table: "Customers",
                 column: "ZipCodeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_ProductId",
-                table: "Images",
-                column: "ProductId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderCustomer_CustomerId",
@@ -572,6 +564,13 @@ namespace eShop.DataLayer.Migrations
                 name: "IX_Orders_PayOptionsId",
                 table: "Orders",
                 column: "PayOptionsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ImageId",
+                table: "Products",
+                column: "ImageId",
+                unique: true,
+                filter: "[ImageId] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -579,9 +578,6 @@ namespace eShop.DataLayer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CategoryProducts");
-
-            migrationBuilder.DropTable(
-                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "OrderCustomer");
@@ -606,6 +602,9 @@ namespace eShop.DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "PayOptions");
+
+            migrationBuilder.DropTable(
+                name: "Images");
         }
     }
 }

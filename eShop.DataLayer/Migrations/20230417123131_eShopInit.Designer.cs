@@ -12,7 +12,7 @@ using eShop.DataLayer;
 namespace eShop.DataLayer.Migrations
 {
     [DbContext(typeof(eShopContext))]
-    [Migration("20230413102234_eShopInit")]
+    [Migration("20230417123131_eShopInit")]
     partial class eShopInit
     {
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace eShop.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ImageId")
+                    b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Manufacture")
@@ -55,6 +55,10 @@ namespace eShop.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique()
+                        .HasFilter("[ImageId] IS NOT NULL");
 
                     b.ToTable("Products");
 
@@ -459,13 +463,13 @@ namespace eShop.DataLayer.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("eShop.DataLayer.Entities.Images", b =>
+            modelBuilder.Entity("eShop.DataLayer.Entities.Image", b =>
                 {
-                    b.Property<int>("ImagesId")
+                    b.Property<int>("ImageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImagesId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
 
                     b.Property<string>("DefaultText")
                         .IsRequired()
@@ -475,226 +479,190 @@ namespace eShop.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ImagesId");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasKey("ImageId");
 
                     b.ToTable("Images");
 
                     b.HasData(
                         new
                         {
-                            ImagesId = 1,
+                            ImageId = 1,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 1
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 2,
+                            ImageId = 2,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 2
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 3,
+                            ImageId = 3,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 3
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 4,
+                            ImageId = 4,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 4
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 5,
+                            ImageId = 5,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 5
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 6,
+                            ImageId = 6,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 6
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 7,
+                            ImageId = 7,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 7
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 8,
+                            ImageId = 8,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 8
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 9,
+                            ImageId = 9,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 9
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 10,
+                            ImageId = 10,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 10
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 11,
+                            ImageId = 11,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 11
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 12,
+                            ImageId = 12,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 12
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 13,
+                            ImageId = 13,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 13
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 14,
+                            ImageId = 14,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 14
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 15,
+                            ImageId = 15,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 15
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 16,
+                            ImageId = 16,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 16
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 17,
+                            ImageId = 17,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 17
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 18,
+                            ImageId = 18,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 18
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 19,
+                            ImageId = 19,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 19
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 20,
+                            ImageId = 20,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 20
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 21,
+                            ImageId = 21,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 21
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 22,
+                            ImageId = 22,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 22
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 23,
+                            ImageId = 23,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 23
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 24,
+                            ImageId = 24,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 24
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 25,
+                            ImageId = 25,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 25
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 26,
+                            ImageId = 26,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 26
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 27,
+                            ImageId = 27,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 27
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 28,
+                            ImageId = 28,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 28
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 29,
+                            ImageId = 29,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 29
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         },
                         new
                         {
-                            ImagesId = 30,
+                            ImageId = 30,
                             DefaultText = "Image not load",
-                            ImgPath = "/Images/diablo-3-pc-20394.png",
-                            ProductId = 30
+                            ImgPath = "/Image/diablo-3-pc-20394.png"
                         });
                 });
 
@@ -720,32 +688,32 @@ namespace eShop.DataLayer.Migrations
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 2,
                             ProductId = 2
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 3,
                             ProductId = 3
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 4,
                             ProductId = 4
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 5,
                             ProductId = 5
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 6,
                             ProductId = 6
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 7,
                             ProductId = 7
                         },
                         new
@@ -755,32 +723,32 @@ namespace eShop.DataLayer.Migrations
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 2,
                             ProductId = 9
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 3,
                             ProductId = 10
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 4,
                             ProductId = 11
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 5,
                             ProductId = 12
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 6,
                             ProductId = 13
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 7,
                             ProductId = 14
                         },
                         new
@@ -790,32 +758,32 @@ namespace eShop.DataLayer.Migrations
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 2,
                             ProductId = 16
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 3,
                             ProductId = 17
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 4,
                             ProductId = 18
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 5,
                             ProductId = 19
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 6,
                             ProductId = 20
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 7,
                             ProductId = 21
                         },
                         new
@@ -825,32 +793,32 @@ namespace eShop.DataLayer.Migrations
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 2,
                             ProductId = 23
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 3,
                             ProductId = 24
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 4,
                             ProductId = 25
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 5,
                             ProductId = 26
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 6,
                             ProductId = 27
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 7,
                             ProductId = 28
                         },
                         new
@@ -860,7 +828,7 @@ namespace eShop.DataLayer.Migrations
                         },
                         new
                         {
-                            CategoryId = 1,
+                            CategoryId = 2,
                             ProductId = 30
                         });
                 });
@@ -1955,6 +1923,15 @@ namespace eShop.DataLayer.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.HasOne("eShop.DataLayer.Entities.Image", "Image")
+                        .WithOne("Product")
+                        .HasForeignKey("Product", "ImageId");
+
+                    b.Navigation("Image");
+                });
+
             modelBuilder.Entity("eShop.DataLayer.Entities.Customer", b =>
                 {
                     b.HasOne("eShop.DataLayer.Entities.ZipCode", "ZipCode")
@@ -1964,17 +1941,6 @@ namespace eShop.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("ZipCode");
-                });
-
-            modelBuilder.Entity("eShop.DataLayer.Entities.Images", b =>
-                {
-                    b.HasOne("Product", "Products")
-                        .WithOne("Images")
-                        .HasForeignKey("eShop.DataLayer.Entities.Images", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("eShop.DataLayer.Entities.JoinerTables.CategoryProducts", b =>
@@ -2049,9 +2015,6 @@ namespace eShop.DataLayer.Migrations
                 {
                     b.Navigation("Category");
 
-                    b.Navigation("Images")
-                        .IsRequired();
-
                     b.Navigation("Orders");
                 });
 
@@ -2063,6 +2026,12 @@ namespace eShop.DataLayer.Migrations
             modelBuilder.Entity("eShop.DataLayer.Entities.Customer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("eShop.DataLayer.Entities.Image", b =>
+                {
+                    b.Navigation("Product")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("eShop.DataLayer.Entities.Orders", b =>

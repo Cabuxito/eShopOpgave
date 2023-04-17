@@ -13,7 +13,7 @@ namespace eShop.DataLayer
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Images> Images { get; set; }
+        public DbSet<Image> Images { get; set; }
         public DbSet<ZipCode> ZipCodes { get; set; }
 
         public eShopContext(DbContextOptions options) : base(options) { }
@@ -29,7 +29,11 @@ namespace eShop.DataLayer
         {
             #region FLUENT API
 
-            //OrderCustomersss
+            // Product
+
+         
+
+            //OrderCustomers
 
             modelBuilder.Entity<OrderCustomer>()
                 .HasOne(o => o.Orders)
@@ -118,8 +122,8 @@ namespace eShop.DataLayer
 
             for (int i = 0; i < 30; i++)
             {
-                modelBuilder.Entity<Images>().HasData(
-                    new Images { ImagesId = 1 + i, ImgPath = @"/Images/diablo-3-pc-20394.png", DefaultText = "Image not load", ProductId = 1 + i });
+                modelBuilder.Entity<Image>().HasData(
+                    new Image { ImageId = 1 + i, ImgPath = @"/Image/diablo-3-pc-20394.png", DefaultText = "Image not load"});
             }
 
             

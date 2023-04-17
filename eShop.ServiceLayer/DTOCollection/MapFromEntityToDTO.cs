@@ -14,7 +14,7 @@ public static class MapFromEntityToDTO
             Title = x.Title,
             Description = x.Description,
             Manufacture = x.Manufacture,
-            ImgPath = x.Images.ImgPath
+            ImgPath = x.Image.ImgPath
         });
     }
 

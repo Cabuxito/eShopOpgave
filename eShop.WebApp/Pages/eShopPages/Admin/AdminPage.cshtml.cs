@@ -27,6 +27,8 @@ namespace eShop.WebApp.Pages.Admin
         public List<CustomerDTO> Customer { get; set; }
         public List<OrderDTO> Order { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int productID { get; set; }
         public bool ProductCheck { get; set; }
         public bool CustomerCheck { get; set; }
         public bool OrderCheck { get; set; }
@@ -50,6 +52,12 @@ namespace eShop.WebApp.Pages.Admin
                 default:
                     break;
             }
+        }
+
+        public async Task<IActionResult> OnPostDelete(int productID)
+        {
+            await _productServices.DeleteProductAsync(productID);
+            return Page();
         }
     }
 }

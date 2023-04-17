@@ -19,7 +19,7 @@ public class OrdersXunit
     //        1,
     //        DateTime.UtcNow,
     //        2000,
-    //        _context.Products.Take(1).ToList()
+    //        _context.Product.Take(1).ToList()
     //    );
     //    //Act
 

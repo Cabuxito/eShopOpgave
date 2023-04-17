@@ -1,4 +1,5 @@
 ﻿using eShop.DataLayer;
+using eShop.DataLayer.Entities;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.ModelsDTO.Extensions;
@@ -21,7 +22,7 @@ namespace eShop.ServiceLayer.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ProductsDTO>> GetAllProducts() => _context.Products.AsNoTracking().Page<Product>(1, 8).ConvertProductsToProductsDTO().ToList();
+        public async Task<List<ProductsDTO>> GetAllProducts() => _context.Products.Include(x => x.Category).AsNoTracking().Page<Product>(1, 8).ConvertProductsToProductsDTO().ToList();
 
         public ProductsDTO GetProductById(int id)
         {
@@ -46,6 +47,11 @@ namespace eShop.ServiceLayer.Services
         public List<ProductsDTO> SearchProductByWord(string word)
         {
             return _context.Products.AsNoTracking().Where(x => EF.Functions.Like(x.Title, word)).ConvertProductsToProductsDTO().ToList();
+        }
+
+        public async Task<List<Category>> GetAllCategories()
+        {
+            return _context.Categories.ToList();
         }
     }
 }

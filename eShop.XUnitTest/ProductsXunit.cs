@@ -42,7 +42,7 @@ public class ProductsXunit
     //    var _context = ContextCreater.CreateContext();
     //    var _service = new ProductServices(_context);
     //    //Arrange
-    //    _context.Products.Add(new Product
+    //    _context.Product.Add(new Product
     //    {
     //        Title = "Test",
     //        Description = "Test",
@@ -99,7 +99,7 @@ public class ProductsXunit
     //    var _context = ContextCreater.CreateContext();
     //    var _service = new ProductServices(_context);
     //    //Arrange
-    //    _context.Products.Add(new Product
+    //    _context.Product.Add(new Product
     //    {
     //        Title = "test",
     //        Description = "Test",

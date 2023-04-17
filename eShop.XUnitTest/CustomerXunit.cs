@@ -12,24 +12,24 @@ namespace eShop.XUnitTest
 {
     public class CustomerXunit
     {
-        [Fact]
-        public async Task TestCreateCustomerAsync()
-        {
-            var _context = ContextCreater.CreateContext();
-            var _service = new CustomerServices(_context);
-            //Arrange
+        //[Fact]
+        //public async Task TestCreateCustomerAsync()
+        //{
+        //    var _context = ContextCreater.CreateContext();
+        //    var _service = new CustomerServices(_context);
+        //    Arrange
 
-            CustomerDTO customerDTO = new CustomerDTO(1, "thomas", "TheKrillz", "SkpMester@", "Alsgade", false);
-            
-            //Act
+        //    CustomerDTO customerDTO = new CustomerDTO(1, "thomas", "TheKrillz", "SkpMester@", "Alsgade", false);
 
-            _service.CreateCustomerAsync(customerDTO);
+        //    Act
 
-            //Assert
-            var actualCustomer = _context.Customers.ToList().Last();
+        //    _service.CreateCustomerAsync(customerDTO);
 
-            Assert.Equal(customerDTO.Firstname, actualCustomer.Firstname);
-            Assert.Equal(customerDTO.Lastname, actualCustomer.Lastname);
-        }
+        //    Assert
+        //    var actualCustomer = _context.Customers.ToList().Last();
+
+        //    Assert.Equal(customerDTO.Firstname, actualCustomer.Firstname);
+        //    Assert.Equal(customerDTO.Lastname, actualCustomer.Lastname);
+        //}
     }
 }

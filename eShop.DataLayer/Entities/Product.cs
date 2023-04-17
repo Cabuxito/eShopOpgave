@@ -1,5 +1,6 @@
 ﻿using eShop.DataLayer.Entities;
 using eShop.DataLayer.Entities.JoinerTables;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Product
 {
@@ -12,8 +13,9 @@ public class Product
 
 
     //Navigations Property
-    public int ImageId { get; set; } // FK
-    public Images Images { get; set; }
+
+    public int? ImageId { get; set; } // FK
+    public Image? Image { get; set; }
 
 
     public ICollection<OrderProduct> Orders { get; set; }

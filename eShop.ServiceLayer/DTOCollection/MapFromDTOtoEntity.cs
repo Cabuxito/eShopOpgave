@@ -5,9 +5,9 @@ namespace eShop.ServiceLayer.DTOCollection
 {
     public static class MapFromDTOtoEntity
     {
-        public static Product ConvertFromDTOtoProduct (this ProductsDTO productsDTO)
+        public static Product ConvertFromDTOtoProduct(this ProductsDTO productsDTO)
         {
-            return new Product
+            var product = new Product
             {
                 ProductId = productsDTO.MasterKey,
                 Title = productsDTO.Title,
@@ -16,6 +16,9 @@ namespace eShop.ServiceLayer.DTOCollection
                 Stock = productsDTO.Stock,
                 Manufacture = productsDTO.Manufacture
             };
+
+            product.Image = new Image { ImgPath = productsDTO.ImgPath };
+            return product;
         }
 
         public static Orders ConvertFromDTOtoOrders(this OrderDTO ordersDTO)
@@ -35,7 +38,7 @@ namespace eShop.ServiceLayer.DTOCollection
                 Firstname = customerDTO.Firstname,
                 Lastname = customerDTO.Lastname,
                 Address = customerDTO.Address,
-                Email= customerDTO.Email,
+                Email = customerDTO.Email,
             };
         }
 
