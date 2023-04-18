@@ -7,7 +7,7 @@
 * [Tags](#Tags)
 * [Changelog](#Changelog)
 * [To-do](#To-do)
-* [ER-Diagram](#ER-Diagram eShop)
+* [ER-Diagram](#ER-Diagram)
 
 ## Intro
 
