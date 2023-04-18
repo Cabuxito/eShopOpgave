@@ -49,7 +49,7 @@
                     <td>@item.Manufacture</td>
                     <td>@item.Stock</td>
                     <td>@item.ImgPath</td>
-                    <td><a class="btn btn-outline-danger" asp-page="EditSite" asp-route-productID="@item.MasterKey"><i class="far fa-edit"></i></a></td>
+                    <td><a class="btn btn-outline-danger" asp-page="CRUD/UpdateProduct" asp-route-productID="@item.MasterKey"><i class="far fa-edit"></i></a></td>
                     <td>
                         <form method="post" asp-page-handler="Delete">
                             <button type="submit" class="btn btn-outline-danger" asp-route-productID="@item.MasterKey" onclick="return confirm('Are you sure?')"><i class="far fa-trash-alt"></i></button>

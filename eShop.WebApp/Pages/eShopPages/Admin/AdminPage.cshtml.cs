@@ -33,7 +33,7 @@ namespace eShop.WebApp.Pages.Admin
         public bool CustomerCheck { get; set; }
         public bool OrderCheck { get; set; }
 
-        public async Task OnPostAsync(int page = 1, int count = 10)
+        public async Task OnPostAsync(int page = 1, int count = 100)
         {
             switch (AdminChoice)
             {
@@ -54,7 +54,7 @@ namespace eShop.WebApp.Pages.Admin
             }
         }
 
-        public async Task<IActionResult> OnPostDelete(int productID)
+        public async Task<IActionResult> OnPostAsyncDelete(int productID)
         {
             await _productServices.DeleteProductAsync(productID);
             return Page();

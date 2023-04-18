@@ -11,11 +11,5 @@ namespace eShop.ServiceLayer.CustomerServices
         public Task DeleteCustomerAsync(CustomerDTO customerDTO);
         public Task<CustomerDTO>? LoginSystem(string username, string password);
 
-        #region ShoppingCart
-        public Task AddItem(ProductsDTO item);
-        public Task RemoveItem(int itemId);
-        public Task UpdateItem(int itemId, int quantity);
-        public double GetTotal();
-        #endregion
     }
 }

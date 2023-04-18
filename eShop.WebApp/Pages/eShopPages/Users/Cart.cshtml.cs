@@ -1,8 +1,10 @@
 using eShop.ServiceLayer.CustomerServices;
 using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.Services;
+using eShop.WebApp.SessionHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace eShop.WebApp.Pages.eShopPages.Users
@@ -18,49 +20,15 @@ namespace eShop.WebApp.Pages.eShopPages.Users
             _customerServices = customerServices;
         }
 
-        public void Onget()
+        public List<ShoppingCartHelper> CartItems { get; set; }
+
+        public void OnGet()
         {
-            ShoppingCartDTO cartDTO = new ShoppingCartDTO();
-            if (HttpContext.Session.TryGetValue("ShoppingCart", out byte[] value))
+            var cartJson = HttpContext.Session.GetString("Cart");
+            if (!string.IsNullOrEmpty(cartJson))
             {
-                cartDTO.Items = JsonSerializer.Deserialize<List<Product>>(value);
+                CartItems = JsonConvert.DeserializeObject<List<ShoppingCartHelper>>(cartJson);
             }
-            else
-            {
-                HttpContext.Session.Set("ShoppingCart", JsonSerializer.SerializeToUtf8Bytes(cartDTO.Items));
-            }
-        }
-
-        public IActionResult AddToCart(int id, int quantity)
-        {
-            ProductsDTO product = _productServices.GetProductById(id);
-
-            if (product != null)
-            {
-                _customerServices.AddItem(new ProductsDTO
-                {
-                    MasterKey = product.MasterKey,
-                    Title = product.Title,
-                    Price = product.Price,
-                    Stock = quantity
-                });
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult RemoveFromCart(int id)
-        {
-            _customerServices.RemoveItem(id);
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult UpdateCart(int id, int quantity)
-        {
-            _customerServices.UpdateItem(id, quantity);
-
-            return RedirectToAction(nameof(Index));
         }
     }
 }

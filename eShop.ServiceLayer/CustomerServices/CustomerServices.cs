@@ -37,7 +37,7 @@ namespace eShop.ServiceLayer.CustomerServices
             await _context.SaveChangesAsync();
         }
 
-        public async Task<CustomerDTO>? LoginSystem (string username, string password)
+        public async Task<CustomerDTO>? LoginSystem(string username, string password)
         {
             CustomerDTO? user = _context.Customers
                 .Where(x => x.Email == username & x.Password == password)
@@ -45,53 +45,6 @@ namespace eShop.ServiceLayer.CustomerServices
             return user;
         }
 
-
-        #region Shopping Cart
-        
-
-        public async Task AddItem(ProductsDTO item)
-        {
-            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            var existingItem = shoppingCart.Items.FirstOrDefault(i => i.ProductId == item.MasterKey);
-
-            if (existingItem != null)
-            {
-                existingItem.Stock += item.Stock;
-            }
-            else
-            {
-                shoppingCart.Items.Add(item.ConvertFromDTOtoProduct());
-            }
-        }
-
-        public async Task RemoveItem(int itemId)
-        {
-            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            var itemToRemove = shoppingCart.Items.FirstOrDefault(i => i.ProductId == itemId);
-
-            if (itemToRemove != null)
-            {
-                shoppingCart.Items.Remove(itemToRemove);
-            }
-        }
-
-        public async Task UpdateItem(int itemId, int quantity)
-        {
-            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            var itemToUpdate = shoppingCart.Items.FirstOrDefault(i => i.ProductId == itemId);
-
-            if (itemToUpdate != null)
-            {
-                itemToUpdate.Stock = quantity;
-            }
-        }
-
-        public double GetTotal()
-        {
-            ShoppingCartDTO shoppingCart = new ShoppingCartDTO();
-            return shoppingCart.Items.Sum(i => i.Price * i.Stock);
-        }
     }
-    #endregion
 }
 
