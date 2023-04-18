@@ -26,7 +26,7 @@ namespace eShop.WebApp.Pages.eShopPages.Products
 
         public async Task OnGet(int page = 1, int count = 8)
         {
-            Games = await _productServices.GetAllProducts(page, count);
+            Games = await _productServices.GetAllProductsPaging(page, count);
         }
 
         public async Task<IActionResult> OnPostSearch()
