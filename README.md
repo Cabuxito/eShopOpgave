@@ -1,4 +1,5 @@
 # eShop
+
 ## Table of content
 
 * [Intro](#Intro)
@@ -46,10 +47,10 @@ I did make ServiceLayer and all CRUD methods, and implement some other methods.
 **v0.3**
 I have test almost all the methods.
 
-
+**v0.4**
+I did make all the UI with razor pages and make almost all.
 
 # To-do
-* UI
 * More Methods
 * Razor
 
