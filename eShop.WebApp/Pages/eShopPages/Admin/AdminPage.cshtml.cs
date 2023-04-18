@@ -23,7 +23,7 @@ namespace eShop.WebApp.Pages.Admin
         [BindProperty]
         public string AdminChoice { get; set; }
 
-        public List<ProductsDTO> Products { get; set; }
+        public Page<ProductsDTO> Products { get; set; }
         public List<CustomerDTO> Customer { get; set; }
         public List<OrderDTO> Order { get; set; }
 
@@ -33,13 +33,13 @@ namespace eShop.WebApp.Pages.Admin
         public bool CustomerCheck { get; set; }
         public bool OrderCheck { get; set; }
 
-        public async Task OnPostAsync()
+        public async Task OnPostAsync(int page = 1, int count = 10)
         {
             switch (AdminChoice)
             {
                 case "Products":
                     ProductCheck = true;
-                    Products = await _productServices.GetAllProducts();
+                    Products = await _productServices.GetAllProducts(page, count);
                     break;
                 case "Customers":
                     CustomerCheck = true;

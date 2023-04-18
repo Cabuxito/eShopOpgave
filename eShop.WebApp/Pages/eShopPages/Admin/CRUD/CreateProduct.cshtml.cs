@@ -28,7 +28,7 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
         public double Price { get; set; }
         [BindProperty]
         public int Stock { get; set; }
-        [BindProperty]
+        [BindProperty, FromForm]
         public IFormFile Image { get; set; }
         [BindProperty]
         public List<SelectListItem> Categories { get; set; }
@@ -48,33 +48,37 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
 
         public async Task<IActionResult> OnPost()
         {
-            string path = $@"~\eShop.WebApp\wwwroot\Images\{Image.FileName}";
+            string path = $@"..\eShop.WebApp\wwwroot\Images\{Image.FileName}";
             List<Category> cat = new List<Category>();
             Categories.ForEach(x => cat.Add(new Category { CategoryId = int.Parse(x.Value) }));
-            ProductsDTO newProduct = new ProductsDTO
-            {
-                Title = ProductName,
-                Description = ProductDescription,
-                Manufacture = Manufacture,
-                Price = Price,
-                ImgPath = path,
-                Stock = Stock,
-                Categories = CategoryIds.Select(x => new Category { CategoryId = x }).ToList(),
-            };
-            using (var fileStream = new FileStream(path, FileMode.Create))
-            {
-                Image.CopyTo(fileStream);
-            }
 
-            if (newProduct != null )
+
+            if (ModelState.IsValid)
             {
-                await _productServices.AddProductAsync(newProduct);
+                await _productServices.AddProductAsync(new ProductsDTO
+                {
+                    Title = ProductName,
+                    Description = ProductDescription,
+                    Manufacture = Manufacture,
+                    Price = Price,
+                    ImgPath = $"\\Images\\{Image.FileName}",
+                    Stock = Stock,
+                    Categories = CategoryIds.Select(x => new Category { CategoryId = x }).ToList(),
+                });
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    Image.CopyTo(fileStream);
+                }
                 return RedirectToPage("/eShopPages/Admin/AdminPage");
             }
             else
             {
-                return Page();
+                return Page();    
             }
+            
+            
+                
+            
 
             
         }

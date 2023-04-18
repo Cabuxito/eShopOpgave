@@ -18,11 +18,11 @@ namespace eShop.WebApp.Pages
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
-        public List<ProductsDTO> Products { get; set; }
+        public Page<ProductsDTO> Products { get; set; }
 
-        public async Task OnGet()
+        public async Task OnGet(int page = 1, int count = 10)
         {
-            Products = await _productServices.GetAllProducts();
+            Products = await _productServices.GetAllProducts(page, count);
         }
     }
 }

@@ -22,7 +22,12 @@ namespace eShop.ServiceLayer.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ProductsDTO>> GetAllProducts() => _context.Products.Include(x => x.Category).AsNoTracking().Page<Product>(1, 8).ConvertProductsToProductsDTO().ToList();
+        public async Task<Page<ProductsDTO>> GetAllProducts(int page, int count)
+        {
+           IQueryable<Product> query = _context.Products.Include(x => x.Category).AsNoTracking();
+           Page<ProductsDTO> productPage = new Page<ProductsDTO>();
+           return new Page<ProductsDTO> { Total = query.Count(), Items = query.Page(page, count).ConvertProductsToProductsDTO().ToList(), CurrentPage = page, PageSize = count };
+        }    
 
         public ProductsDTO GetProductById(int id)
         {
@@ -46,9 +51,9 @@ namespace eShop.ServiceLayer.Services
 
         public List<ProductsDTO> SearchProductByWord(string word)
         {
-            return _context.Products.AsNoTracking().Where(x => EF.Functions.Like(x.Title, word)).ConvertProductsToProductsDTO().ToList();
+            return _context.Products.AsNoTracking().Where(x => x.Title.Contains(word)).ConvertProductsToProductsDTO().ToList();
         }
-
+        
         public async Task<List<Category>> GetAllCategories()
         {
             return _context.Categories.ToList();
