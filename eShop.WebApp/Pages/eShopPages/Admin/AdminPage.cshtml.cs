@@ -1,3 +1,4 @@
+
 using eShop.ServiceLayer.CustomerServices;
 using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.OrderServices;
@@ -20,7 +21,7 @@ namespace eShop.WebApp.Pages.Admin
             _orderServices = orderServices;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string AdminChoice { get; set; }
 
         public Page<ProductsDTO> Products { get; set; }
@@ -33,13 +34,13 @@ namespace eShop.WebApp.Pages.Admin
         public bool CustomerCheck { get; set; }
         public bool OrderCheck { get; set; }
 
-        public async Task OnPostAsync(int page = 1, int count = 100)
+        public async Task OnGetAsync()
         {
             switch (AdminChoice)
             {
                 case "Products":
                     ProductCheck = true;
-                    Products = await _productServices.GetAllProducts(page, count);
+                    Products = await _productServices.GetAllProducts( 1, 100);
                     break;
                 case "Customers":
                     CustomerCheck = true;
@@ -54,7 +55,7 @@ namespace eShop.WebApp.Pages.Admin
             }
         }
 
-        public async Task<IActionResult> OnPostAsyncDelete(int productID)
+        public async Task<IActionResult> OnPostAsync(int productID)
         {
             await _productServices.DeleteProductAsync(productID);
             return Page();
