@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eShop.DataLayer.Entities.JoinerTables
 {
-    public class OrderCustomer
+    public class OrdersCustomer
     {
         public int OrdersId { get; set; }
         public Orders Orders { get; set; }

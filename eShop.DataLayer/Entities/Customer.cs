@@ -19,7 +19,7 @@ namespace eShop.DataLayer.Entities
         public bool IsAdmin { get; set; } = false;
 
         // Navigations Property
-        public ICollection<OrderCustomer> Orders { get; set; }
+        public ICollection<OrdersCustomer> Orders { get; set; }
 
         public int ZipCodeId { get; set; } // FK
         public ZipCode ZipCode { get; set; }

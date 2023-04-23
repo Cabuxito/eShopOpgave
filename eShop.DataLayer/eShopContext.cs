@@ -35,17 +35,17 @@ namespace eShop.DataLayer
 
             //OrderCustomers
 
-            modelBuilder.Entity<OrderCustomer>()
+            modelBuilder.Entity<OrdersCustomer>()
                 .HasOne(o => o.Orders)
                 .WithMany(c => c.Customers)
                 .HasForeignKey(x => x.OrdersId);
 
-            modelBuilder.Entity<OrderCustomer>()
+            modelBuilder.Entity<OrdersCustomer>()
                 .HasOne(c => c.Customers)
                 .WithMany(o => o.Orders)
                 .HasForeignKey(x => x.CustomerId);
 
-            modelBuilder.Entity<OrderCustomer>()
+            modelBuilder.Entity<OrdersCustomer>()
                 .HasKey(x => new
                 {
                     x.OrdersId,
