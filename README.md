@@ -17,10 +17,12 @@ I got a project about an eShop, I need to make database with EntityFrameworkCore
 ## Demands 
 
 <ul>
-  <li> Master: Create the solution. [✔️]</li> 
-  <li> Develop.v0.1: Implement OOP and make DataLayer. [✔️]</li> 
-  <li> Develop.v0.2: Make all the methods and implement ServiceLayer. [✔️]</li>
+  <li> Develop.v0.5-API: Make Api and Add controllers. []</li>
+  <li> Develop.v0.4-UI: I did implement UI and add Razor Pages to eShop [✔️]</li>
   <li> Develop.v0.3-xUnitTest: Test all the methods and be sure that all works. [✔️]</li>
+  <li> Develop.v0.2: Make all the methods and implement ServiceLayer. [✔️]</li>
+  <li> Develop.v0.1: Implement OOP and make DataLayer. [✔️]</li> 
+  <li> Master: Create the solution. [✔️]</li> 
 </ul>
 
 ## Instructions
@@ -29,6 +31,7 @@ You dont need any instructions yet.
 
 ## Tags
 
+* [v0.5]https://github.com/Cabuxito/eShopOpgave/tree/Develop.v0.5.API
 * [v0.4]https://github.com/Cabuxito/eShopOpgave/tree/Develop.v0.4.UI
 * [v0.3-xUnit]https://github.com/Cabuxito/eShopOpgave/tree/Develop.v0.3-xUnitTest
 * [v0.2]https://github.com/Cabuxito/eShopOpgave/tree/Develop.v0.2
@@ -50,9 +53,11 @@ I have test almost all the methods.
 **v0.4**
 I did make all the UI with razor pages and make almost all.
 
+**v0.5**
+I have add some api controllers and make my API for products, categories, and orders. ( under development )
+
 # To-do
-* More Methods
-* Razor
+* Improve my methods and make a better UI.
 
 
 ## ER-Diagram
