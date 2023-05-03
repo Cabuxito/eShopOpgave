@@ -16,7 +16,7 @@ public static class MapFromEntityToDTO
             Manufacture = x.Manufacture,
             ImgPath = x.Image.ImgPath,
             Price = x.Price,
-            Stock = x.Stock,
+            Stock = x.Stock
             
         });
     }
@@ -28,7 +28,7 @@ public static class MapFromEntityToDTO
             x.OrdersId,
             x.BuyDate,
             x.Products.Sum(x => x.Products.Price),
-            new List<Product>(),
+            new List<ProductsDTO>(),
             new Customer()
         ));
 
@@ -48,6 +48,21 @@ public static class MapFromEntityToDTO
             x.Password
         ));
         
+    }
+
+    public static ProductsDTO ConvertProductsToProductsDTO(this Product product)
+    {
+        return new ProductsDTO
+        {
+            MasterKey = product.ProductId,
+            Title = product.Title,
+            Description = product.Description,
+            Manufacture = product.Manufacture,
+            ImgPath = product.Image.ImgPath,
+            Price = product.Price,
+            Stock = product.Stock
+
+        };
     }
 
 }

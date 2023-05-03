@@ -62,8 +62,7 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
                     Manufacture = Manufacture,
                     Price = Price,
                     ImgPath = $"\\Images\\{Image.FileName}",
-                    Stock = Stock,
-                    Categories = CategoryIds.Select(x => new Category { CategoryId = x }).ToList(),
+                    Stock = Stock
                 });
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {

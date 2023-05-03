@@ -9,9 +9,9 @@ namespace eShop.ServiceLayer.ModelsDTO
         public double FullPrice { get; set; }
         
         public Customer Customer { get; set; }
-        public List<Product> Products { get; set; }
+        public List<ProductsDTO> Products { get; set; }
 
-        public OrderDTO(int ordersId, DateTime buyDate, double fullprice, List<Product> products, Customer customer)
+        public OrderDTO(int ordersId, DateTime buyDate, double fullprice, List<ProductsDTO> products, Customer customer)
         {
             OrdersId = ordersId;
             BuyDate = buyDate;

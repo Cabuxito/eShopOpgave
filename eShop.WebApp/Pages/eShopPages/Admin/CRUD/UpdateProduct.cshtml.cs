@@ -50,8 +50,7 @@ namespace eShop.WebApp.Pages.eShopPages.Admin.CRUD
                 Manufacture = NewManufacture,
                 Price = NewPrice,
                 ImgPath = NewImage,
-                Stock = NewStock,
-                Categories = NewCategoryIds.Select(x => new Category { CategoryId = x }).ToList(),
+                Stock = NewStock
             };
             if (Product != null)
             {

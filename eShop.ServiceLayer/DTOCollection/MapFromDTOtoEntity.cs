@@ -25,6 +25,7 @@ namespace eShop.ServiceLayer.DTOCollection
         {
             return new Orders
             {
+                OrdersId = ordersDTO.OrdersId,
                 BuyDate = ordersDTO.BuyDate,
 
             };
@@ -42,5 +43,12 @@ namespace eShop.ServiceLayer.DTOCollection
             };
         }
 
+        public static Category ConvertFromDTOtoCategory(this CategoryDTO categoryDTO)
+        {
+            return new Category
+            {
+                Name = categoryDTO.Name
+            };
+        }
     }
 }

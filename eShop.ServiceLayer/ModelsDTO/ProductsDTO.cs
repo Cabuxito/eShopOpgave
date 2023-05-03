@@ -11,7 +11,10 @@ namespace eShop.ServiceLayer.ModelsDTO
         public int Stock { get; set; }
         public string Manufacture { get; set; }
         public string ImgPath { get; set; }
+    }
 
-        public ICollection<Category> Categories { get; set; }
+    public class CategoryDTO
+    {
+        public string Name { get; set; }
     }
 }

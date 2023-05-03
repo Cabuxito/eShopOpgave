@@ -16,10 +16,12 @@ namespace eShop.ServiceLayer.Services
             _context = context;
         }
 
-        public async Task AddProductAsync(ProductsDTO productDTO)
+        public async Task<ProductsDTO> AddProductAsync(ProductsDTO productDTO)
         {
-            _context.Products.Add(productDTO.ConvertFromDTOtoProduct());
+            var product = productDTO.ConvertFromDTOtoProduct();
+            _context.Products.Add(product);
             await _context.SaveChangesAsync();
+            return product.ConvertProductsToProductsDTO();
         }
 
         public async Task<Page<ProductsDTO>> GetAllProducts(int page, int count)
@@ -29,9 +31,9 @@ namespace eShop.ServiceLayer.Services
            return new Page<ProductsDTO> { Total = query.Count(), Items = query.Page(page, count).ConvertProductsToProductsDTO().ToList(), CurrentPage = page, PageSize = count };
         }    
 
-        public ProductsDTO GetProductById(int id)
+        public async Task<ProductsDTO> GetProductById(int id)
         {
-            return (ProductsDTO)_context.Products.AsNoTracking().Where(x => x.ProductId == id).ConvertProductsToProductsDTO();
+            return await _context.Products.AsNoTracking().Where(x => x.ProductId == id).ConvertProductsToProductsDTO().FirstOrDefaultAsync();
         }
 
         public async Task UpdateProductAsync(ProductsDTO productDTO)
@@ -53,10 +55,25 @@ namespace eShop.ServiceLayer.Services
         {
             return _context.Products.AsNoTracking().Where(x => x.Title.Contains(word)).ConvertProductsToProductsDTO().ToList();
         }
-        
+
+
+        #region Category
+
+        public async Task<Category> GetCategoryById(int id)
+        {
+            return await _context.Categories.AsNoTracking().Where(x => x.CategoryId == id).FirstOrDefaultAsync();
+        }
+
         public async Task<List<Category>> GetAllCategories()
         {
             return _context.Categories.ToList();
         }
+
+        public async Task CreateCategory(CategoryDTO category)
+        {
+            _context.Categories.Add(category.ConvertFromDTOtoCategory());
+            _context.SaveChanges();
+        }
+        #endregion
     }
 }

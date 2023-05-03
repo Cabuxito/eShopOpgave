@@ -16,7 +16,10 @@ namespace eShopOpgave.WebAPI.Controllers.CategoriesControllers
         {
             _productServices = productServices;
         }
-
+        /// <summary>
+        /// Get a list of all Categories.
+        /// </summary>
+        /// <returns>Categories list</returns>
         [HttpGet]
         public async Task<List<Category>> GetCategories()
         {

@@ -41,7 +41,7 @@ namespace eShop.WebApp.Pages.eShopPages.Products
 
         public async Task OnPosTAddToCart()
         {
-            ProductsDTO chooseProduct = _productServices.GetProductById(productId);
+            ProductsDTO chooseProduct = await _productServices.GetProductById(productId);
             HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(chooseProduct));
             
         }

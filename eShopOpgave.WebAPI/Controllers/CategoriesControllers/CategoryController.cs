@@ -1,4 +1,6 @@
 ﻿using eShop.DataLayer.Entities;
+using eShop.ServiceLayer.DTOCollection;
+using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +19,27 @@ namespace eShopOpgave.WebAPI.Controllers.CategoriesControllers
             _productServices = productServices;
         }
 
-        [HttpPost]
-        public void AddCategory (Category category)
+        /// <summary>
+        /// Get Category by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Category Object</returns>
+        [HttpGet("{id}")]
+        public async Task<Category> GetCategoryById(int id)
         {
-            if (category != null)
-            {
-                
-            }
+            return await _productServices.GetCategoryById(id);
+        }
+
+        /// <summary>
+        /// Create new Category.
+        /// </summary>
+        /// <param name="category"></param>
+        [HttpPost]
+        [Route("Create")]
+        public void AddCategory(CategoryDTO category)
+        {
+            _productServices.CreateCategory(category);
+
         }
     }
 }

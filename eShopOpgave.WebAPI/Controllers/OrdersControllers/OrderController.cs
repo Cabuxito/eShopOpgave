@@ -7,24 +7,28 @@ namespace eShopOpgave.WebAPI.Controllers.OrdersControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Produces("application/json")]
-    public class OrdersController : ControllerBase
+    public class OrderController : ControllerBase
     {
         private readonly IOrderServices _orderServices;
 
-        public OrdersController(IOrderServices orderServices)
+        public OrderController(IOrderServices orderServices)
         {
             _orderServices = orderServices;
         }
 
         /// <summary>
-        /// Get a list of all orders in DB.
+        /// Create new Order. ( Under Development )  
         /// </summary>
-        /// <returns>List of orders.</returns>
-        [HttpGet]
-        public async Task<List<OrderDTO>> GetAllOrders()
+        /// <param name="orderDTO"></param>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///
+        /// </remarks>
+        [HttpPost]
+        public async Task CreateNewOrder(OrderDTO orderDTO)
         {
-            return await _orderServices.GetAllOrders();
+            await _orderServices.CreateNewOrder(orderDTO);
         }
     }
 }
