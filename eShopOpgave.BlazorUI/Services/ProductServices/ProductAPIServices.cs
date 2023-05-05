@@ -1,4 +1,5 @@
 ﻿using eShopOpgave.BlazorUI.Services.DTO;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace eShopOpgave.BlazorUI.Services.ProductServices
 {
@@ -42,6 +43,11 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
         public async Task DeleteProductById(int id)
         {
             await _httpClient.DeleteAsync($"/api/Product/Delete/?id={id}");
+        }
+
+        public async Task<ProductsBase> Search(string word)
+        {
+            return await _httpClient.GetFromJsonAsync<ProductsBase>($"/api/Search:{word}");
         }
     }
 }

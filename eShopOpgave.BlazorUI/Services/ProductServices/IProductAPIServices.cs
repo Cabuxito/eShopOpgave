@@ -8,5 +8,6 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
         Task DeleteProductById(int id);
         Task<ProductsBase> GetAllProducts(int page, int count);
         Task<Item> GetProductById(int id);
+        Task<ProductsBase> Search(string word);
     }
 }

@@ -2,9 +2,11 @@
 @inject NavigationManager _navigationManager
 @inject IToastService _toastService
 
+
+<input type="text" @bind="SearchString" />
 <h3>Products</h3>
 
-<button @onclick='() => _navigationManager.NavigateTo($"/CreateProduct")'>Create Product</button>
+<button @onclick='() => _navigationManager.NavigateTo($"/CreateProduct")' class="btn btn-outline-success mb-4 mt-4">Create Product</button>
 <body>
     <main class="row gx-2 gy-3 ms-1">
         @foreach (var item in products.items)
@@ -35,9 +37,15 @@
 @code {
     private ProductsBase products = new();
 
+    private string? SearchString;
 
     protected override async Task OnInitializedAsync()
     {
         products = await _productServices.GetAllProducts(1, 20);
     }
+
+    //public async Task<List<Item>> Search()
+    //{
+        
+    //}
 }
