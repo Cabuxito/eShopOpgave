@@ -1,0 +1,55 @@
+﻿@page "/admin"
+@inject IProductAPIServices _productServices
+@inject NavigationManager _navigationManager
+    
+
+<h3 class="text-center">AdminPage</h3>
+
+<button @onclick='() => _navigationManager.NavigateTo($"/createproduct")' class="btn btn-outline-success mb-4 mt-4">Create Product</button>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    @foreach (var item in products.items)
+    {
+        <tbody>
+            <tr>
+                <th scope="row">@item.masterKey</th>
+                <td>@item.title</td>
+                <td>@item.description</td>
+                <td>@item.price</td>
+                <td>@item.stock</td>
+                <td><button type="submit" @onclick='() => _navigationManager.NavigateTo($"update")' class="btn btn-warning">Update</button></td>
+                <td>
+                    <form>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+@code {
+    private ProductsBase products = new();
+    private int count = 8;
+    private int pages;
+    private int currentPage = 1;
+    private int totalPages => (int)Math.Ceiling(decimal.Divide(pages, count));
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await _productServices.GetAllProducts(currentPage, count);
+    }
+
+}
