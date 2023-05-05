@@ -39,6 +39,16 @@
         </tbody>
     }
 </table>
+<div class="d-flex justify-content-center">
+    <ul class="pagination">
+        <li class=@(currentPage == 1 ? "page-item disabled" : "page-item")><a class="page-link" @onclick="PreviousPage">Previous</a></li>
+        @for (var i = 1; i <= totalPages; i++)
+        {
+            <li class="@(i == currentPage ? "page-item active" : "")"><a class="page-item">@i</a></li>
+        }
+        <li class=@(totalPages == currentPage ? "page-item disabled" : "page-item")><a class="page-link" @onclick="NextPage">Next</a></li>
+    </ul>
+</div>
 
 @code {
     private ProductsBase products = new();
@@ -50,6 +60,16 @@
     protected override async Task OnInitializedAsync()
     {
         products = await _productServices.GetAllProducts(currentPage, count);
+    }
+
+    private async Task NextPage()
+    {
+        products = await _productServices.GetAllProducts(++currentPage, count);
+    }
+
+    private async Task PreviousPage()
+    {
+        products = await _productServices.GetAllProducts(--currentPage, count);
     }
 
 }
