@@ -32,7 +32,7 @@
                 <td><button type="submit" @onclick='() => _navigationManager.NavigateTo($"update")' class="btn btn-warning">Update</button></td>
                 <td>
                     <form>
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger" @onclick="e => Delete(item.masterKey)">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -71,5 +71,11 @@
     {
         products = await _productServices.GetAllProducts(--currentPage, count);
     }
+
+    private async Task Delete(int id)
+    {
+        await _productServices.DeleteProductById(id);
+    }
+
 
 }

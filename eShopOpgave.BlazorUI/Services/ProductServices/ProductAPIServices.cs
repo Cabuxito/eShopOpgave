@@ -14,7 +14,7 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
 
         public async Task<ProductsBase> GetAllProducts(int page, int count)
         {
-            ProductsBase item = await _httpClient.GetFromJsonAsync<ProductsBase>($"/api/Products/?page={page}&count={count}");
+            ProductsBase? item = await _httpClient.GetFromJsonAsync<ProductsBase>($"/api/Products/?page={page}&count={count}");
 
             if (item != null)
             {
