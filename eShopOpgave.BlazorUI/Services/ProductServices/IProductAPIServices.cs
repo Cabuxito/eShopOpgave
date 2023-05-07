@@ -9,5 +9,6 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
         Task<ProductsBase> GetAllProducts(int page, int count);
         Task<Item> GetProductById(int id);
         Task<ProductsBase> Search(string word);
+        Task<Item> UpdateProduct(Item newItem);
     }
 }

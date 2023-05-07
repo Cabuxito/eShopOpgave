@@ -40,6 +40,13 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
             throw new KeyNotFoundException("Item Not Found");
         }
 
+        public async Task<Item> UpdateProduct(Item newItem)
+        {
+            var response = await _httpClient.PutAsJsonAsync<Item>($"/api/Product/Update", newItem);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<Item>();
+        }
+
         public async Task DeleteProductById(int id)
         {
             await _httpClient.DeleteAsync($"/api/Product/Delete/?id={id}");

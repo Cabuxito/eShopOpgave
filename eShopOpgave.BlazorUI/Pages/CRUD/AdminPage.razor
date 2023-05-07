@@ -1,13 +1,12 @@
 ﻿@page "/admin"
+@using eShopOpgave.BlazorUI.Pages.Components;
 @inject IProductAPIServices _productServices
 @inject NavigationManager _navigationManager
-    
+
 
 <h3 class="text-center">AdminPage</h3>
 
 <button @onclick='() => _navigationManager.NavigateTo($"/createproduct")' class="btn btn-outline-success mb-4 mt-4">Create Product</button>
-
-
 <table class="table">
     <thead>
         <tr>
@@ -29,7 +28,7 @@
                 <td>@item.description</td>
                 <td>@item.price</td>
                 <td>@item.stock</td>
-                <td><button type="submit" @onclick='() => _navigationManager.NavigateTo($"update")' class="btn btn-warning">Update</button></td>
+                <td><button type="submit" @onclick='@(() => modal.Show<Update>("updateProduct"))' class="btn btn-warning">Update</button></td>
                 <td>
                     <form>
                         <button type="submit" class="btn btn-danger" @onclick="e => Delete(item.masterKey)">Delete</button>
@@ -44,13 +43,14 @@
         <li class=@(currentPage == 1 ? "page-item disabled" : "page-item")><a class="page-link" @onclick="PreviousPage">Previous</a></li>
         @for (var i = 1; i <= totalPages; i++)
         {
-            <li class="@(i == currentPage ? "page-item active" : "")"><a class="page-item">@i</a></li>
+            <li class="@(i == currentPage ? "page-item" : "")"><a class="page-item">@i</a></li>
         }
         <li class=@(totalPages == currentPage ? "page-item disabled" : "page-item")><a class="page-link" @onclick="NextPage">Next</a></li>
     </ul>
 </div>
 
 @code {
+    [CascadingParameter] public IModalService modal { get; set; } = default!;
     private ProductsBase products = new();
     private int count = 8;
     private int pages;
@@ -76,6 +76,5 @@
     {
         await _productServices.DeleteProductById(id);
     }
-
 
 }

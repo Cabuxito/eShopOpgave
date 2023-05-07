@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using Blazored.Toast;
 using eShopOpgave.BlazorUI.Services.ProductServices;
 
@@ -10,6 +11,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IProductAPIServices, ProductAPIServices>()
     .AddScoped(x => new HttpClient { BaseAddress = new Uri("https://localhost:7297") });
 builder.Services.AddBlazoredToast();
+builder.Services.AddBlazoredModal();
 
 var app = builder.Build();
 

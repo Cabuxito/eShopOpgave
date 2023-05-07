@@ -1,8 +1,50 @@
 ﻿@page "/createproduct"
+@inject IProductAPIServices _productServices
+@inject NavigationManager _navigationManager
 
 <PageTitle>CreateProduct</PageTitle>
 
+<div class="container">
+    <h2>Create a New Product</h2>
+    <hr />
+    <EditForm Model="@product" OnValidSubmit="@CreateProducts">
+        <div class="form-group">
+            <label>Name:</label>
+            <InputText class="form-control mt-3" @bind-Value="product.title" />
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <InputTextArea class="form-control mt-3" @bind-Value="@product.description" />
+        </div>
+        <div class="form-group">
+            <label>Price:</label>
+            <InputNumber class="form-control mt-3" @bind-Value="@product.price" />
+        </div>
+        <div class="form-group">
+            <label>Stock:</label>
+            <InputNumber class="form-control mt-3" @bind-Value="@product.stock" />
+        </div>
+        <div class="form-group">
+            <label>Manufacture:</label>
+            <InputText class="form-control mt-3" @bind-Value="product.manufacture" />
+        </div>
+        @*<div class="form-group">
+            <label>Picture:</label>
+            <InputFile class="form-control" @bind-Value="@product.imgPath" />
+            <ValidationMessage For="@(() => product.imgPath)" />
+        </div>*@
+        <button type="submit" class="btn btn-primary mt-3">Create Product</button>
+    </EditForm>
+</div>
 
 @code {
+    private ProductsBase products = new();
+    private Item product = new();
 
+
+    private async Task CreateProducts()
+    {
+        product.imgPath = "";
+        await _productServices.CreateProduct(product);
+    }
 }
