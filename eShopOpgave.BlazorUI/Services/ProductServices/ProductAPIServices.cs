@@ -50,9 +50,9 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
             await _httpClient.DeleteAsync($"/api/Product/Delete/?id={id}");
         }
 
-        public async Task<ProductsBase> Search(string word)
+        public async Task<ProductsBase>? Search(string word)
         {
-            return await _httpClient.GetFromJsonAsync<ProductsBase>($"/api/Search:{word}");
+            return await _httpClient.GetFromJsonAsync<ProductsBase>($"/api/Products/Search/{word}");
         }
     }
 }

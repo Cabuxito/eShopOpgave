@@ -33,7 +33,7 @@ namespace eShopOpgave.WebAPI.Controllers.ProductsControllers
         /// <param name="searchString"></param>
         /// <returns>list of products</returns>
         [HttpGet]
-        [Route("Search:string")]
+        [Route("Search/{searchString}")]
         public ActionResult<List<ProductsDTO>> SearchProducts(string searchString) => _productServices.SearchProductByWord(searchString);
     }
 }

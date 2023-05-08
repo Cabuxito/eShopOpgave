@@ -79,7 +79,7 @@
         if (!string.IsNullOrEmpty(SearchString))
         {
             products = await _productServices.Search(SearchString);
-             StateHasChanged();
+            StateHasChanged();
         }
         else
         {
