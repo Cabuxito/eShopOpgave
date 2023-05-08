@@ -28,7 +28,7 @@
                 <td>@item.description</td>
                 <td>@item.price</td>
                 <td>@item.stock</td>
-                <td><button type="submit" @onclick='@(() => modal.Show<Update>("updateProduct"))' class="btn btn-warning">Update</button></td>
+                <td><button type="submit" @onclick='@(() => modal.Show<Update>("updateProduct", new ModalParameters().Add(nameof(Update.id), item.masterKey)))' class="btn btn-warning">Update</button></td>
                 <td>
                     <form>
                         <button type="submit" class="btn btn-danger" @onclick="e => Delete(item.masterKey)">Delete</button>

@@ -33,7 +33,7 @@
             <InputFile class="form-control" @bind-Value="@product.imgPath" />
             <ValidationMessage For="@(() => product.imgPath)" />
         </div>*@
-        <button type="submit" class="btn btn-primary mt-3">Create Product</button>
+        <button type="submit" class="btn btn-primary mt-3" @onclick="CreateProducts">Create Product</button>
     </EditForm>
 </div>
 
@@ -44,7 +44,8 @@
 
     private async Task CreateProducts()
     {
-        product.imgPath = "";
+        product.imgPath = "/Images/diablo-3-pc-20394.png";
         await _productServices.CreateProduct(product);
+        _navigationManager.NavigateTo("/Products");
     }
 }

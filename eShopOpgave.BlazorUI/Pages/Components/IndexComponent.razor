@@ -13,7 +13,7 @@
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" @bind="Password">
                 <label for="floatingPassword">Password</label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit" @onclick="Login">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit" @onclick="Login">Sign in</button>
         </form>
         <div>
             <p class="mt-1 z-1">Are you not a member?  <a href="/eShopPages/Users/CRUD/CreateUser" class="text-decoration-none">Register Here</a></p>
@@ -32,7 +32,7 @@
         }
         else
         {
-            _navigationManager.NavigateTo("");
+            _navigationManager.NavigateTo("Index");
         }
     }
 }

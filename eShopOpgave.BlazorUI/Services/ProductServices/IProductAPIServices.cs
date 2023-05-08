@@ -1,4 +1,5 @@
 ﻿using eShopOpgave.BlazorUI.Services.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace eShopOpgave.BlazorUI.Services.ProductServices
 {
@@ -9,6 +10,6 @@ namespace eShopOpgave.BlazorUI.Services.ProductServices
         Task<ProductsBase> GetAllProducts(int page, int count);
         Task<Item> GetProductById(int id);
         Task<ProductsBase> Search(string word);
-        Task<Item> UpdateProduct(Item newItem);
+        Task UpdateProduct(Item newItem);
     }
 }

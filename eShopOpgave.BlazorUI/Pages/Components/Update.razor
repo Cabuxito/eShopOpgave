@@ -4,7 +4,7 @@
 <EditForm Model="@updateProduct" OnValidSubmit="@UpdateProduct">
     <div class="form-group">
         <label>Name:</label>
-        <InputText class="form-control mt-3" @bind-Value="updateProduct.title"  />
+        <InputText class="form-control mt-3" @bind-Value="updateProduct.title"/>
     </div>
     <div class="form-group">
         <label>Description:</label>
@@ -25,7 +25,6 @@
     @*<div class="form-group">
     <label>Picture:</label>
     <InputFile class="form-control" @bind-Value="@product.imgPath" />
-    <ValidationMessage For="@(() => product.imgPath)" />
     </div>*@
     <button type="submit" class="btn btn-primary mt-3" @onclick="UpdateProduct">Update Product</button>
 </EditForm>
@@ -35,20 +34,25 @@
 
 
 @code {
-    //[Parameter] private int id { get; set; }
+    [CascadingParameter] public BlazoredModalInstance modal { get; set; } = default!;
+    [Parameter] public int id { get; set; }
     private Item OldItem = new();
     private Item updateProduct = new();
 
     protected override async Task OnInitializedAsync()
     {
-        OldItem = await _productServices.GetProductById(12);
+        OldItem = await _productServices.GetProductById(id);
     }      
 
     private async Task UpdateProduct()
     {
         updateProduct.masterKey = OldItem.masterKey;
-        updateProduct.imgPath = "";
+        updateProduct.imgPath = "/Images/diablo-3-pc-20394.png";
         await _productServices.UpdateProduct(updateProduct);
+        await modal.CloseAsync();
+        StateHasChanged();
     }
+
+   
 
 }

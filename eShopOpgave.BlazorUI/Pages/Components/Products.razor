@@ -1,4 +1,5 @@
 ﻿@page "/products"
+@using eShopOpgave.BlazorUI.Pages.Components;
 @inject IProductAPIServices _productServices
 @inject NavigationManager _navigationManager
 @inject IToastService _toastService
@@ -29,7 +30,7 @@
                                 <form method="post">
                                     <button type="submit" class="btn btn-sm btn-outline-success" asp-route-productId="@item.masterKey">Add Cart</button>
                                 </form>
-                                <button type="button" class="btn btn-sm btn-outline-dark ms-4">See more</button>
+                                <button type="button" class="btn btn-sm btn-outline-dark ms-4" @*@onclick='@(() => modal.Show<ProductDescription>("updateProduct", new ModalParameters().Add(nameof(Update.id), item.masterKey)))'*@>See more</button>
                             </div>
                         </div>
                     </div>
@@ -50,6 +51,7 @@
 </body>
 
 @code {
+    [CascadingParameter] public IModalService modal { get; set; } = default!;
     private ProductsBase products = new();
     private int count = 8;
     private int pages;
