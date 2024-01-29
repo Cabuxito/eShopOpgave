@@ -1,3 +1,4 @@
+using eShop.DataLayer.Entities;
 using eShop.ServiceLayer.DTOCollection;
 using eShop.ServiceLayer.ModelsDTO;
 using eShop.ServiceLayer.Services;
@@ -8,58 +9,62 @@ namespace eShop.XUnitTest;
 
 public class ProductsXunit
 {
-    //[Fact]
-    //public async Task TestCreateProduct()
-    //{
-    //    var _context = ContextCreater.CreateContext();
-    //    var _service = new ProductServices(_context);
-    //    //Arrange
-    //    ProductsDTO productsDTO = new ProductsDTO
-    //    {
-    //        MasterKey = 1,
-    //        Title = "Test",
-    //        Description = "Test",
-    //        Price = 22,
-    //        Stock = 1,
-    //        Manufacture = "asdasd"
-    //    };
+    [Fact]
+    public async Task TestCreateProduct()
+    {
+        var _context = ContextCreater.CreateContext();
+        var _service = new ProductServices(_context);
+        //Arrange
+        ProductsDTO productsDTO = new ProductsDTO
+        {
+            MasterKey = 1,
+            Title = "Test",
+            Description = "Test",
+            Price = 22,
+            Categories = new List<Category>() { new Category() { Name="elias"} },
+            ImgPath = "nul",
+            Stock = 1,
+            Manufacture = "asdasd"
+        };
 
-    //    //Act
+        //Act
 
-    //    await _service.AddProductAsync(productsDTO);
+        await _service.AddProductAsync(productsDTO);
 
-    //    //Assert
-    //    var actualProduct = _context.Products.ToList().Last();
+        //Assert
+        var actualProduct = _context.Products.ToList().Last();  
 
-    //    Assert.Equal(productsDTO.Title, actualProduct.Title);
-    //    Assert.Equal(productsDTO.Description, actualProduct.Description);
+        Assert.Equal(productsDTO.Title, actualProduct.Title);
+        Assert.Equal(productsDTO.Description, actualProduct.Description);
 
-    //}
+    }
 
-    //[Fact]
-    //public void TestGetProducts()
-    //{
-    //    var _context = ContextCreater.CreateContext();
-    //    var _service = new ProductServices(_context);
-    //    //Arrange
-    //    _context.Product.Add(new Product
-    //    {
-    //        Title = "Test",
-    //        Description = "Test",
-    //        Price = 22,
-    //        Stock = 1,
-    //        Manufacture = "asdasd"
-    //    });
-    //    _context.SaveChanges();
-    //    //Act
+    [Fact]
+    public async void TestGetProducts()
+    {
+        int expectedItems = 1;
 
-    //    var list = _service.GetAllProducts();
+        var _context = ContextCreater.CreateContext();
+        var _service = new ProductServices(_context);
+        //Arrange
+        _context.Products.Add(new Product
+        {
+            Title = "Test",
+            Description = "Test",
+            Price = 22,
+            Stock = 1,
+            Manufacture = "asdasd"
+        });
+        _context.SaveChanges();
+        //Act
 
-    //    //Assert
+        var list = await _service.GetAllProducts(1,2);
 
-    //    Assert.Equal(list, 1);
+        //Assert
 
-    //}
+        Assert.Equal(1, list.Items.Count);
+
+    }
 
     [Fact]
     public void TestSearchProductByWord()

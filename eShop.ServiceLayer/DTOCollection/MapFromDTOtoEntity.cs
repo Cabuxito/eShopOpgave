@@ -35,6 +35,7 @@ namespace eShop.ServiceLayer.DTOCollection
             return new Customer
             {
                 CustomerID = customerDTO.PrivateNumber,
+                Password = customerDTO.Password,
                 Firstname = customerDTO.Firstname,
                 Lastname = customerDTO.Lastname,
                 Address = customerDTO.Address,

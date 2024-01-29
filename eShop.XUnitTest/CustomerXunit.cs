@@ -19,11 +19,11 @@ namespace eShop.XUnitTest
             var _service = new CustomerServices(_context);
             //Arrange
 
-            CustomerDTO customerDTO = new CustomerDTO("thomas", "TheKrillz", "SkpMester@hotmail.com", "Alsgade");
+            CustomerDTO customerDTO = new CustomerDTO(1,"thomas", "TheKrillz", 6400, "SkpMester@hotmail.com", "1213213", true , "Alsgade");
 
             //Act
 
-            _service.CreateCustomerAsync(customerDTO);
+            await _service.CreateCustomerAsync(customerDTO);
 
             //Assert
             var actualCustomer = _context.Customers.ToList().Last();
