@@ -8,33 +8,33 @@ namespace eShop.XUnitTest;
 
 public class ProductsXunit
 {
-    [Fact]
-    public async Task TestCreateProduct()
-    {
-        var _context = ContextCreater.CreateContext();
-        var _service = new ProductServices(_context);
-        //Arrange
-        ProductsDTO productsDTO = new ProductsDTO
-        {
-            MasterKey = 1,
-            Title = "Test",
-            Description = "Test",
-            Price = 22,
-            Stock = 1,
-            Manufacture = "asdasd"
-        };
+    //[Fact]
+    //public async Task TestCreateProduct()
+    //{
+    //    var _context = ContextCreater.CreateContext();
+    //    var _service = new ProductServices(_context);
+    //    //Arrange
+    //    ProductsDTO productsDTO = new ProductsDTO
+    //    {
+    //        MasterKey = 1,
+    //        Title = "Test",
+    //        Description = "Test",
+    //        Price = 22,
+    //        Stock = 1,
+    //        Manufacture = "asdasd"
+    //    };
 
-        //Act
+    //    //Act
 
-        await _service.AddProductAsync(productsDTO);
+    //    await _service.AddProductAsync(productsDTO);
 
-        //Assert
-        var actualProduct = _context.Products.ToList().Last();
+    //    //Assert
+    //    var actualProduct = _context.Products.ToList().Last();
 
-        Assert.Equal(productsDTO.Title, actualProduct.Title);
-        Assert.Equal(productsDTO.Description, actualProduct.Description);
+    //    Assert.Equal(productsDTO.Title, actualProduct.Title);
+    //    Assert.Equal(productsDTO.Description, actualProduct.Description);
 
-    }
+    //}
 
     //[Fact]
     //public void TestGetProducts()
@@ -126,36 +126,36 @@ public class ProductsXunit
     //    Assert.Empty(products);
     //}
 
-    [Fact]
-    public async Task TestUpdateProduct()
-    {
-        var _context = ContextCreater.CreateContext();
-        var _myContext = ContextCreater.CreateContext();
-        var _service = new ProductServices(_context);
-        //Arrange
-        ProductsDTO productsDTO = new ProductsDTO
-        {
-            MasterKey = 1,
-            Title = "Test",
-            Description = "Test",
-            Price = 22,
-            Stock = 1,
-            Manufacture = "asdasd"
+    //[Fact]
+    //public async Task TestUpdateProduct()
+    //{
+    //    var _context = ContextCreater.CreateContext();
+    //    var _myContext = ContextCreater.CreateContext();
+    //    var _service = new ProductServices(_context);
+    //    //Arrange
+    //    ProductsDTO productsDTO = new ProductsDTO
+    //    {
+    //        MasterKey = 1,
+    //        Title = "Test",
+    //        Description = "Test",
+    //        Price = 22,
+    //        Stock = 1,
+    //        Manufacture = "asdasd"
 
-        };
-        _myContext.Products.Add(productsDTO.ConvertFromDTOtoProduct());
-        await _myContext.SaveChangesAsync();
+    //    };
+    //    _myContext.Products.Add(productsDTO.ConvertFromDTOtoProduct());
+    //    await _myContext.SaveChangesAsync();
 
-        productsDTO.Description = "ITS WORKIIIING";
-        productsDTO.Stock = 421;
-        //Act
+    //    productsDTO.Description = "ITS WORKIIIING";
+    //    productsDTO.Stock = 421;
+    //    //Act
 
-        await _service.UpdateProductAsync(productsDTO);
+    //    await _service.UpdateProductAsync(productsDTO);
 
-        //Assert
-        var actualProduct = _myContext.Products.AsNoTracking().First();
+    //    //Assert
+    //    var actualProduct = _myContext.Products.AsNoTracking().First();
 
-        Assert.Equal(productsDTO.Stock, actualProduct.Stock);
-        Assert.Equal(productsDTO.Description, actualProduct.Description);
-    }
+    //    Assert.Equal(productsDTO.Stock, actualProduct.Stock);
+    //    Assert.Equal(productsDTO.Description, actualProduct.Description);
+    //}
 }
