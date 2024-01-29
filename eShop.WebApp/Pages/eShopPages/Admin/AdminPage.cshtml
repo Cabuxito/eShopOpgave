@@ -1,0 +1,102 @@
+﻿@page
+@model eShop.WebApp.Pages.Admin.AdminPageModel
+@{
+}
+
+<div class="card">
+    <form method="post">
+        <h2 class="text-center">Admin</h2>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column">
+                <select asp-for="AdminChoice">
+                    <option>Products</option>
+                    <option>Customers</option>
+                    <option>Orders</option>
+                </select>
+                <input class="btn btn-outline-dark mt-2" type="submit" value="Search"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@*PRODUCTS TABLE*@
+@if (Model.ProductCheck == true)
+{
+    <a class="btn btn-outline-success" href="/eShopPages/Admin/CRUD/CreateProduct">Create Product</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Manufacture</th>
+                <th scope="col">Stock</th>
+                <th scope="col">ImagePath</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Products.Items)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@item.MasterKey</th>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td>@item.Manufacture</td>
+                    <td>@item.Stock</td>
+                    <td>@item.ImgPath</td>
+                    <td><a class="btn btn-outline-danger" asp-page="CRUD/UpdateProduct" asp-route-productID="@item.MasterKey"><i class="far fa-edit"></i></a></td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete">
+                            <button type="submit" class="btn btn-outline-danger" asp-route-productID="@item.MasterKey" onclick="return confirm('Are you sure?')"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+@*CUSTOMER TABLE*@
+@if (Model.CustomerCheck == true)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Email</th>
+                <th scope="col">Adress</th>
+                <th scope="col">ZipCode</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Customer)
+        {
+
+            <tbody>
+                <tr>
+                    <th scope="row">@item.PrivateNumber</th>
+                    <td>@item.Firstname</td>
+                    <td>@item.Lastname</td>
+                    <td>@item.Email</td>
+                    <td>@item.Address</td>
+                    <td>@item.ZipCode</td>
+                    <td><a class="btn btn-outline-danger" asp-page="EditSite" asp-route-productID="@item.PrivateNumber"><i class="far fa-edit"></i></a></td>
+                    <td>
+                        <form method="post" asp-page-handler="DeleteProduct">
+                            <button type="submit" class="btn btn-outline-danger" asp-route-productID="@item.PrivateNumber" onclick="return confirm('Are you sure?')"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+@*ORDER TABLE*@
+

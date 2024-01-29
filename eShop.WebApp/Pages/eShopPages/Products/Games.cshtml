@@ -1,0 +1,61 @@
+﻿@page
+@model eShop.WebApp.Pages.eShopPages.Products.GamesModel
+@{
+}
+<section class="text-center">
+    <div class="">
+            <img src="~/Images/Wall.jpg" height="400" width="100%" aria-hidden="true" focusable="false" />
+            <p class="lead text-muted">Something short and leading about the collection below—its contents</p>
+        </div>
+</section>
+<body >
+    <main class="row gx-2 gy-3 ms-1" >
+        @foreach (var item in Model.Games.Items)
+        {
+            <div class="d-inline-flex col-3">
+                <div class="card shadow-sm border-dark ">
+                    <img src="@item.ImgPath" class="border-dark" width="300" height="300">
+                    <div class="card-body border-dark">
+                        <div>
+                            <p class="card-title">@item.Title</p>
+                            <small class="float-end">@item.Price.-</small>
+                        </div>
+                        <p class="card-text text-truncate" style="max-width: 250px;">@item.Description</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group ms-4">
+                                <form method="post" asp-page-handler="AddToCart">
+                                    <button type="submit" class="btn btn-sm btn-outline-success" asp-route-productId="@item.MasterKey">Add Cart</button>
+                                </form>
+                                <button type="button" class="btn btn-sm btn-outline-dark ms-4">See more</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <form method="post" >
+            <nav class="d-flex justify-content-between">
+                <ul class="pagination">
+                    <li class="page-item"><input type="submit" asp-page-handler="Search" asp-route-CurrentPage="@(Model.CurrentPage - 1)" class="page-link" value="Previous" /></li>
+                    @for (int i = 1; i <= Model.Games.PageCount; i++)
+                    {
+                        @*<li class="page-item"><a class="page-link" href="@Url.Page("/Index", new { manufacturerIds = Model.ManufacturerIds, search = Model.Search, categoryId = Model.CategoryId, orderBy = Model.OrderBy, page = i})">@i</a></li>*@
+                        <li class="page-item"><input type="submit" asp-page-handler="Search" asp-route-CurrentPage="@i" value="@i" class="page-link" /></li>
+                    }
+                    <li class="page-item"><input class="page-link" type="submit" asp-page-handler="Search" asp-route-CurrentPage="@(Model.CurrentPage + 1)" value="Next" /></li>
+                </ul>
+                <ul class="pagination">
+                    <li class="page-item">
+                        <select asp-for="PageSize" onchange="document.forms['pageSizeForm'].submit()" class="form-select-sm h-100">
+                            <option value="8">8</option>
+                            <option value="16">16</option>
+                            <option value="24">24</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </form>
+    </main>
+
+    @*<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>*@
+</body>
