@@ -50,10 +50,10 @@ public class ProductsXunit
     //        Stock = 1,
     //        Manufacture = "asdasd"
     //    });
-    //    _context.SaveChanges();    
+    //    _context.SaveChanges();
     //    //Act
 
-    //    var list = _service.GetAllProducts().Count();
+    //    var list = _service.GetAllProducts();
 
     //    //Assert
 
